@@ -25,29 +25,29 @@
     "file-saver": "^2.0.5",
     "http-proxy-middleware": "^3.0.5",
     "nginx": "^1.1.0",
-    "react": "19.2.1",
+    "react": "19.2.3",
     "react-apexcharts": "^1.9.0",
-    "react-dom": "19.2.1",
+    "react-dom": "19.2.3",
     "react-icons": "^5.5.0",
-    "react-router-dom": "7.10.1",
+    "react-router-dom": "7.11.0",
     "react-toastify": "^11.0.5",
     "react-window": "^2.2.3",
-    "recharts": "^2.15.0",
+    "recharts": "^3.6.0",
     "serve-static": "^2.2.0",
-    "xlsx": "0.18.5"
+    "xlsx": "^0.18.7"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.2",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^14.2.2",
+    "@playwright/test": "^1.57.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
     "@vitejs/plugin-react": "5.1.2",
-    "jsdom": "^25.0.1",
-    "vite": "7.2.7",
+    "jsdom": "^27.3.0",
+    "vite": "7.3.0",
     "vite-plugin-svgr": "^4.5.0",
-    "vitest": "^2.1.4"
+    "vitest": "^4.0.16"
   },
   "overrides": {
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   }
 }

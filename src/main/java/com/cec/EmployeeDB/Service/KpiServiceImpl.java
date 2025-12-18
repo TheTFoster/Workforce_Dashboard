@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -128,6 +129,7 @@ public class KpiServiceImpl implements KpiService {
         return s.contains("active") || s.equals("employed") || s.equals("working");
     }
 
+    @SuppressWarnings("null")
     private List<ProjectDistribution> getProjectDistribution() {
         try {
             String sql = """
@@ -160,6 +162,7 @@ public class KpiServiceImpl implements KpiService {
         }
     }
 
+    @SuppressWarnings("null")
     private ProjectHoursScope getProjectHoursScope() {
         try {
             String sql = """
@@ -170,7 +173,7 @@ public class KpiServiceImpl implements KpiService {
                 FROM paycom_time_report
                 """;
 
-            Map<String, Object> result = jdbc.queryForMap(sql, NO_PARAMS);
+            Map<String, Object> result = Objects.requireNonNullElse(jdbc.queryForMap(sql, NO_PARAMS), new HashMap<>());
             String start = formatDateObject(result.get("start_date"));
             String end = formatDateObject(result.get("end_date"));
             double totalHours = result.get("total_hours") != null
@@ -219,6 +222,7 @@ public class KpiServiceImpl implements KpiService {
         }
     }
 
+    @SuppressWarnings("unused")
     private TransferAnalytics getTransferAnalytics() {
         try {
             String countSql = """
@@ -230,7 +234,11 @@ public class KpiServiceImpl implements KpiService {
                 FROM transfers_v2
                 """;
 
+            @SuppressWarnings("null")
             Map<String, Object> counts = jdbc.queryForMap(countSql, NO_PARAMS);
+            if (counts == null) {
+                counts = new HashMap<>();
+            }
             long total = ((Number) counts.getOrDefault("total", 0L)).longValue();
             long thisMonth = ((Number) counts.getOrDefault("this_month", 0L)).longValue();
             long thisYear = ((Number) counts.getOrDefault("this_year", 0L)).longValue();
@@ -249,6 +257,7 @@ public class KpiServiceImpl implements KpiService {
                 LIMIT 10
                 """;
 
+            @SuppressWarnings("null")
             List<RecentTransfer> recentTransfers = jdbc.query(recentSql, NO_PARAMS, (rs, i) ->
                 new RecentTransfer(
                     0, // Using 0 for employee ID since emp_code is string-based
@@ -267,6 +276,7 @@ public class KpiServiceImpl implements KpiService {
         }
     }
 
+    @SuppressWarnings("unused")
     private TimecardInsights getTimecardInsights() {
         try {
             LocalDate now = LocalDate.now();
@@ -290,6 +300,9 @@ public class KpiServiceImpl implements KpiService {
             params.put("fourWeeksAgo", fourWeeksAgo);
 
             Map<String, Object> result = jdbc.queryForMap(sql, params);
+            if (result == null) {
+                result = new HashMap<>();
+            }
             
             return new TimecardInsights(
                 ((Number) result.getOrDefault("total_entries", 0L)).longValue(),
@@ -304,6 +317,7 @@ public class KpiServiceImpl implements KpiService {
         }
     }
 
+    @SuppressWarnings("unused")
     private AlertSummary getAlertSummary() {
         try {
             LocalDateTime now = LocalDateTime.now();
@@ -327,6 +341,9 @@ public class KpiServiceImpl implements KpiService {
             params.put("weekStart", startOfWeek);
 
             Map<String, Object> result = jdbc.queryForMap(sql, params);
+            if (result == null) {
+                result = new HashMap<>();
+            }
             
             return new AlertSummary(
                 ((Number) result.getOrDefault("total", 0L)).longValue(),

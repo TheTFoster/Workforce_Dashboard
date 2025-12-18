@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,28 +20,33 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.containsString;
 
 @WebMvcTest(controllers = BatchSyncController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @Import(LocalDateFormatter.class)
-class BatchSyncControllerTest {
+class BatchSyncControllerTest extends org.mockito.junit.jupiter.MockitoExtension {
 
     @Autowired
     MockMvc mvc;
 
-    @MockBean
+    @Mock
     FieldImportService importService;
 
-    @MockBean
+    @Mock
     FieldBatchSyncService fieldBatchSyncService;
 
+    @InjectMocks
+    BatchSyncController batchSyncController;
+
+    @SuppressWarnings("null")
     @Test
     void preview_returns_report() throws Exception {
         when(fieldBatchSyncService.preview()).thenReturn(BatchReport.empty("ok"));
 
         mvc.perform(post("/api/v1/batch-sync/preview"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.errors[0]").value(org.hamcrest.Matchers.containsString("ok")));
+                .andExpect(jsonPath("$.errors[0]").value(containsString("ok")));
     }
 
     @Test

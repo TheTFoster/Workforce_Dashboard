@@ -23,6 +23,7 @@ class AlertsMutateServiceTest {
     @InjectMocks
     AlertsMutateService service;
 
+    @SuppressWarnings({ "unchecked", "null" })
     @Test
     void ack_updates_status() {
         service.ack(5);
@@ -32,10 +33,12 @@ class AlertsMutateServiceTest {
         assertThat(params.getValue()).containsEntry("id", 5L);
     }
 
+    @SuppressWarnings("null")
     @Test
     void resolve_updates_status() {
         service.resolve(7);
 
+        @SuppressWarnings("unchecked")
         ArgumentCaptor<Map<String, Object>> params = ArgumentCaptor.forClass(Map.class);
         verify(jdbc).update(anyString(), params.capture());
         assertThat(params.getValue()).containsEntry("id", 7L);

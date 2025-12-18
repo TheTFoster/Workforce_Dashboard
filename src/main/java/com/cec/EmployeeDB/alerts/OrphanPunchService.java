@@ -15,6 +15,7 @@ public class OrphanPunchService {
     private final NamedParameterJdbcTemplate jdbc;
     private final AlertsService alertsService;
 
+    @SuppressWarnings("null")
     public List<Map<String, Object>> list(String empCode, LocalDate from, LocalDate to, int limit) {
         var sql = new StringBuilder("""
                 SELECT

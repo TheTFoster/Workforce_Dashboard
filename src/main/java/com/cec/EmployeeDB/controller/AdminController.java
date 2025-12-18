@@ -3,7 +3,6 @@ package com.cec.EmployeeDB.controller;
 import com.cec.EmployeeDB.Dto.CreateUserRequest;
 import com.cec.EmployeeDB.Entity.Supervisor;
 import com.cec.EmployeeDB.Repo.SupervisorRepository;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;

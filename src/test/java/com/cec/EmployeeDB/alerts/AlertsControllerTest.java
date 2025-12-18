@@ -5,7 +5,6 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,11 +29,11 @@ class AlertsControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @org.mockito.Mock
     private AlertsService alertsService;
-    @MockBean
+    @org.mockito.Mock
     private NoHoursAlertBatch noHoursAlertBatch;
-    @MockBean
+    @org.mockito.Mock
     private MissedPunchAlertBatch missedPunchAlertBatch;
 
     @Test
@@ -158,6 +157,7 @@ class AlertsControllerTest {
                 .andExpect(status().isOk());
 
         ArgumentCaptor<String> status = ArgumentCaptor.forClass(String.class);
+        @SuppressWarnings("unchecked")
         ArgumentCaptor<java.util.List<String>> types = ArgumentCaptor.forClass(java.util.List.class);
         ArgumentCaptor<Integer> employeeId = ArgumentCaptor.forClass(Integer.class);
         ArgumentCaptor<String> empCode = ArgumentCaptor.forClass(String.class);

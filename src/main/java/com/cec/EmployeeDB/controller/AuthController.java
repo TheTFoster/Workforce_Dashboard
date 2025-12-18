@@ -151,15 +151,16 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    private static boolean isStrongPassword(String password) {
-        if (password == null || password.length() < 12) return false;
-        int classes = 0;
-        if (password.chars().anyMatch(Character::isUpperCase)) classes++;
-        if (password.chars().anyMatch(Character::isLowerCase)) classes++;
-        if (password.chars().anyMatch(Character::isDigit)) classes++;
-        if (password.chars().anyMatch(ch -> "!@#$%^&*()-_=+[]{};:'\",.<>/?\\|`~".indexOf(ch) >= 0)) classes++;
-        return classes >= 3;
-    }
+    //Revisit implementaion
+    // private static boolean isStrongPassword(String password) {
+    //     if (password == null || password.length() < 12) return false;
+    //     int classes = 0;
+    //     if (password.chars().anyMatch(Character::isUpperCase)) classes++;
+    //     if (password.chars().anyMatch(Character::isLowerCase)) classes++;
+    //     if (password.chars().anyMatch(Character::isDigit)) classes++;
+    //     if (password.chars().anyMatch(ch -> "!@#$%^&*()-_=+[]{};:'\",.<>/?\\|`~".indexOf(ch) >= 0)) classes++;
+    //     return classes >= 3;
+    // }
 
     private static String clientIp(HttpServletRequest req) {
         String hdr = req.getHeader("X-Forwarded-For");

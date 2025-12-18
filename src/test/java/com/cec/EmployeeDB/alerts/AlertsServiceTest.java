@@ -30,6 +30,7 @@ class AlertsServiceTest {
     AlertsService service;
 
     @Test
+    @SuppressWarnings({"unchecked", "null"})
     void list_passes_filters_and_returns_rows() {
         when(jdbc.query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class)))
                 .thenReturn(Collections.emptyList());

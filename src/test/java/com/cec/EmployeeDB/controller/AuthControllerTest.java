@@ -8,11 +8,13 @@ import com.cec.EmployeeDB.Security.RateLimiterService;
 import com.cec.EmployeeDB.payloadresponse.LoginMessage;
 import com.cec.EmployeeDB.Config.LocalDateFormatter;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.MediaType;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,12 +23,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ExtendWith(MockitoExtension.class)
 @WebMvcTest(controllers = AuthController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @Import(LocalDateFormatter.class)
@@ -35,23 +37,26 @@ class AuthControllerTest {
     @Autowired
     MockMvc mvc;
 
-    @MockBean
+    @Mock
     EmployeeService employeeService;
 
-    @MockBean
+    @Mock
     com.cec.EmployeeDB.auth.PwChangeTokenService pwChangeTokenService;
 
-    @MockBean
+    @Mock
     SupervisorRepository supervisorRepository;
 
-    @MockBean
+    @Mock
     EmployeeRepo employeeRepo;
 
-    @MockBean
+    @Mock
     RateLimiterService rateLimiterService;
 
-    @MockBean
+    @Mock
     PasswordEncoder passwordEncoder;
+
+    @InjectMocks
+    AuthController authController;
 
     @Test
     void login_success_returns_ok_payload() throws Exception {
@@ -63,7 +68,7 @@ class AuthControllerTest {
         given(supervisorRepository.findByEmployeeCodeIgnoreCase(any())).willReturn(Optional.empty());
 
         mvc.perform(post("/api/v1/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"employeeCode\":\"EE1\",\"password\":\"pw\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(true));
@@ -75,7 +80,7 @@ class AuthControllerTest {
         given(rateLimiterService.allowLoginById(any())).willReturn(false);
 
         mvc.perform(post("/api/v1/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(java.util.Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"employeeCode\":\"EE1\",\"password\":\"pw\"}"))
                 .andExpect(status().isTooManyRequests())
                 .andExpect(jsonPath("$.status").value(false));

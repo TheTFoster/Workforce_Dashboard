@@ -49,6 +49,7 @@ class TimecardQueryServiceImplTest {
         assertThat(result).isEmpty();
     }
 
+    @SuppressWarnings({ "null", "unchecked" })
     @Test
     void fetchSpans_limits_and_maps_rows() {
         when(jdbc.query(anyString(), any(org.springframework.jdbc.core.ResultSetExtractor.class), any(Object[].class))).thenAnswer(inv -> {

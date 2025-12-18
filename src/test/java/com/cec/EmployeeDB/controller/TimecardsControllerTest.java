@@ -1,7 +1,6 @@
 package com.cec.EmployeeDB.controller;
 
 import com.cec.EmployeeDB.Dto.CurrentAssignmentDTO;
-import com.cec.EmployeeDB.Dto.EmpCodeBatchRequest;
 import com.cec.EmployeeDB.Service.TimecardCacheService;
 import com.cec.EmployeeDB.Service.TimecardImportService;
 import com.cec.EmployeeDB.Service.TimecardPredictionService;
@@ -10,10 +9,10 @@ import com.cec.EmployeeDB.Service.TimecardsService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -33,28 +33,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@WebMvcTest(controllers = TimecardsController.class)
-@AutoConfigureMockMvc(addFilters = false)
-@Import(com.cec.EmployeeDB.Config.LocalDateFormatter.class)
+@ExtendWith(MockitoExtension.class)
 class TimecardsControllerTest {
+
+    @Mock
+    private TimecardImportService importService;
+    @Mock
+    private TimecardPredictionService predictionService;
+    @Mock
+    private TimecardQueryService timecardQueryService;
+    @Mock
+    private TimecardCacheService cacheService;
+    @Mock
+    private TimecardsService timecardsService;
+    @Mock
+    private JdbcTemplate jdbcTemplate;
+
+    @InjectMocks
+    private TimecardsController timecardsController;
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private TimecardImportService importService;
-    @MockBean
-    private TimecardPredictionService predictionService;
-    @MockBean
-    private TimecardQueryService timecardQueryService;
-    @MockBean
-    private TimecardCacheService cacheService;
-    @MockBean
-    private TimecardsService timecardsService;
-    @MockBean
-    private JdbcTemplate jdbcTemplate;
 
     @Test
     void normalize_skips_in_smoke_mode() throws Exception {
@@ -106,7 +106,7 @@ class TimecardsControllerTest {
     @Test
     void current_assignments_by_emp_returns_empty_when_no_codes() throws Exception {
         mockMvc.perform(post("/api/v1/timecards/current-assignments/by-emp")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"empCodes\":[]}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.count").value(0))
@@ -127,7 +127,7 @@ class TimecardsControllerTest {
         when(timecardsService.currentAssignmentsFor(anyList(), anyInt())).thenReturn(List.of(dto));
 
         mockMvc.perform(post("/api/v1/timecards/current-assignments/by-emp")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"empCodes\":[\" aa \", \"AA\", \"bb\"]}")
                         .param("days", "60"))
                 .andExpect(status().isOk())
@@ -139,6 +139,7 @@ class TimecardsControllerTest {
                 .andExpect(jsonPath("$.items[0].workGroup").value("WG1"))
                 .andExpect(jsonPath("$.items[0].lastSeenAt").value("2024-01-02T10:15:00"));
 
+        @SuppressWarnings("unchecked")
         ArgumentCaptor<List<String>> codesCaptor = ArgumentCaptor.forClass(List.class);
         ArgumentCaptor<Integer> daysCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(timecardsService).currentAssignmentsFor(codesCaptor.capture(), daysCaptor.capture());
@@ -154,14 +155,15 @@ class TimecardsControllerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     void week_detail_queries_db_and_returns_rows() throws Exception {
-        var row = Map.of("workDate", "2024-01-02", "hours", 8);
-        org.mockito.Mockito.when(jdbcTemplate.query(
-                org.mockito.ArgumentMatchers.anyString(),
+        var fallbackRow = Map.of("workDate", "2024-01-02", "hours", 8);
+        List<Map<String, Object>> mockResult = (List<Map<String, Object>>) (List<?>) List.of(fallbackRow);
+        org.mockito.Mockito.when(jdbcTemplate.<Map<String, Object>>query(
+                org.mockito.ArgumentMatchers.<String>any(),
                 org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.PreparedStatementSetter.class),
-                org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.RowMapper.class)
-        )).thenReturn(List.of(row));
+                org.mockito.ArgumentMatchers.<org.springframework.jdbc.core.RowMapper<Map<String, Object>>>any()
+        )).thenReturn(mockResult);
 
         mockMvc.perform(get("/api/v1/timecards/week-detail")
                         .param("eeCode", "EE1")
@@ -173,11 +175,11 @@ class TimecardsControllerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "null"})
     void search_filters_and_delegates_to_jdbc() throws Exception {
         var row = Map.of("employeeCode", "EE1", "hours", 40);
         org.mockito.Mockito.when(jdbcTemplate.query(
-                org.mockito.ArgumentMatchers.anyString(),
+                org.mockito.ArgumentMatchers.<String>any(),
                 org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.PreparedStatementSetter.class),
                 org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.RowMapper.class)
         )).thenReturn(List.of(row));
@@ -200,7 +202,7 @@ class TimecardsControllerTest {
         verify(jdbcTemplate).query(sqlCaptor.capture(),
                 org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.PreparedStatementSetter.class),
                 org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.RowMapper.class));
-        assertThat(sqlCaptor.getValue()).contains("FROM paycom_time_report");
+        assertThat(Objects.requireNonNull(sqlCaptor.getValue())).contains(Objects.requireNonNull("FROM paycom_time_report"));
     }
 
     @Test
@@ -225,6 +227,7 @@ class TimecardsControllerTest {
 
     @Test
     void range_paged_parses_page_and_size() throws Exception {
+        @SuppressWarnings("null")
         org.springframework.data.domain.Page< com.cec.EmployeeDB.Dto.TimecardDTO > page =
                 new org.springframework.data.domain.PageImpl<>(List.of(), org.springframework.data.domain.PageRequest.of(1, 100), 0);
         when(timecardsService.findInRangePaged(org.mockito.ArgumentMatchers.any(), org.mockito.ArgumentMatchers.any(), org.mockito.ArgumentMatchers.any()))
@@ -250,7 +253,7 @@ class TimecardsControllerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     void raw_timecards_returns_rows_from_jdbc() throws Exception {
         var row = Map.of("ee_code", "EE1", "work_date", "2024-01-02", "earn_hours", 8);
         org.mockito.Mockito.when(jdbcTemplate.query(
@@ -277,7 +280,7 @@ class TimecardsControllerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     void by_emp_returns_rows_from_jdbc() throws Exception {
         var row = Map.of("ee_code", "EE1", "work_date", "2024-01-03", "earn_hours", 6);
         org.mockito.Mockito.when(jdbcTemplate.query(
@@ -319,7 +322,7 @@ class TimecardsControllerTest {
                 .thenThrow(new RuntimeException("boom"));
 
         mockMvc.perform(post("/api/v1/timecards/latest-by-emp")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"empCodes\":[\"E1\"]}"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.error").value("latest-by-emp failed"))
@@ -334,7 +337,7 @@ class TimecardsControllerTest {
                 .thenReturn(map);
 
         mockMvc.perform(post("/api/v1/timecards/latest-by-emp")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"empCodes\":[\"E1\"]}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.predictions.E1.eeCode").value("E1"))
@@ -342,7 +345,6 @@ class TimecardsControllerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void latest_single_employee_delegates_service() throws Exception {
         var dto = com.cec.EmployeeDB.Dto.LatestWorkedDTO.builder()
                 .eeCode("EE1")
@@ -371,25 +373,25 @@ class TimecardsControllerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "null" })
     void current_assignments_fallbacks_to_jdbc_on_service_error() throws Exception {
         org.mockito.Mockito.when(timecardsService.currentAssignmentsFor(org.mockito.ArgumentMatchers.anyList(), org.mockito.ArgumentMatchers.anyInt()))
                 .thenThrow(new RuntimeException("svc fail"));
-        var fallbackRow = Map.of(
+        Map<String, Object> fallbackRow = Map.of(
                 "employeeCode", "E1",
                 "jobNumber", "J1",
                 "project", "Proj",
                 "workGroup", "WG",
                 "lastSeenAt", "2024-01-01T08:00:00"
         );
-        org.mockito.Mockito.when(jdbcTemplate.query(
-                org.mockito.ArgumentMatchers.anyString(),
+        org.mockito.Mockito.when(jdbcTemplate.<Map<String, Object>>query(
+                org.mockito.ArgumentMatchers.<String>any(),
                 org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.PreparedStatementSetter.class),
-                org.mockito.ArgumentMatchers.any(org.springframework.jdbc.core.RowMapper.class)
+                org.mockito.ArgumentMatchers.<org.springframework.jdbc.core.RowMapper<Map<String, Object>>>any()
         )).thenReturn(List.of(fallbackRow));
 
         mockMvc.perform(post("/api/v1/timecards/current-assignments/by-emp")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"empCodes\":[\"E1\"]}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.count").value(1))
@@ -400,7 +402,8 @@ class TimecardsControllerTest {
                 .andExpect(jsonPath("$.items[0].lastSeenAt").value("2024-01-01T08:00:00"));
     }
 
-    @Test
+    @SuppressWarnings({ "null", "unchecked" })
+@Test
     void current_assignments_fallback_failure_returns_500() throws Exception {
         org.mockito.Mockito.when(timecardsService.currentAssignmentsFor(org.mockito.ArgumentMatchers.anyList(), org.mockito.ArgumentMatchers.anyInt()))
                 .thenThrow(new RuntimeException("svc fail"));
@@ -411,7 +414,7 @@ class TimecardsControllerTest {
         )).thenThrow(new RuntimeException("jdbc fail"));
 
         mockMvc.perform(post("/api/v1/timecards/current-assignments/by-emp")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(Objects.requireNonNull(MediaType.APPLICATION_JSON))
                         .content("{\"empCodes\":[\"E1\"]}"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.error").value("current-assignments/by-emp failed"))

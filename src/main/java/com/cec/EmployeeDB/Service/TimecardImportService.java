@@ -341,6 +341,7 @@ public class TimecardImportService {
     return importCsv(file, false);
   }
 
+  @SuppressWarnings("null")
   private int loadCsvIntoStage(MultipartFile file) throws Exception {
     Path tmp = Files.createTempFile("paycom-timecards-", ".csv");
     try {
@@ -635,15 +636,16 @@ public class TimecardImportService {
    */
   private String getXlsx(Row row, Map<String, Integer> headerMap, Map<String, String> normalizedHeaders, String field) {
     String originalHeader = normalizedHeaders.get(field);
-    if (originalHeader == null) return null;
+    if (originalHeader == null) return "";
     
     Integer colIndex = headerMap.get(originalHeader);
-    if (colIndex == null) return null;
+    if (colIndex == null) return "";
     
     Cell cell = row.getCell(colIndex);
-    if (cell == null) return null;
+    if (cell == null) return "";
     
-    return safe(getCellValueAsString(cell));
+    String result = safe(getCellValueAsString(cell));
+    return result != null ? result : "";
   }
 
   /**

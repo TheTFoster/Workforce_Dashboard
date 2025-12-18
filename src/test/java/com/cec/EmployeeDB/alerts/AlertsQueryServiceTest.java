@@ -25,6 +25,7 @@ class AlertsQueryServiceTest {
     AlertsQueryService service;
 
     @Test
+    @SuppressWarnings({"unchecked", "null"})
     void find_returns_parsed_rows() {
         Map<String, Object> row = Map.of(
                 "id", 1L,
@@ -46,6 +47,7 @@ class AlertsQueryServiceTest {
     }
 
     @Test
+    @SuppressWarnings({"unchecked", "null"})
     void count_returns_zero_when_null() {
         when(jdbc.queryForObject(anyString(), any(Map.class), any(Class.class))).thenReturn(null);
 

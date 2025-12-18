@@ -22,6 +22,7 @@ class OrphanPunchServiceTest {
     @Mock
     private AlertsService alertsService;
 
+    @SuppressWarnings("null")
     @Test
     void delete_invokes_resolve_when_row_deleted_and_alert_id_present() {
         when(jdbc.update(eq("DELETE FROM paycom_time_report WHERE id=:id"), any(MapSqlParameterSource.class))).thenReturn(1);
@@ -33,6 +34,7 @@ class OrphanPunchServiceTest {
         verify(alertsService).resolve(15L);
     }
 
+    @SuppressWarnings("null")
     @Test
     void delete_does_not_resolve_when_no_rows_deleted() {
         when(jdbc.update(eq("DELETE FROM paycom_time_report WHERE id=:id"), any(MapSqlParameterSource.class))).thenReturn(0);
@@ -43,6 +45,7 @@ class OrphanPunchServiceTest {
         verify(alertsService, never()).resolve(anyLong());
     }
 
+    @SuppressWarnings("null")
     @Test
     void delete_does_not_resolve_when_alert_id_missing() {
         when(jdbc.update(eq("DELETE FROM paycom_time_report WHERE id=:id"), any(MapSqlParameterSource.class))).thenReturn(1);

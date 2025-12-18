@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.8</version>
+		<version>3.5.9</version>
 		<relativePath/>
 	</parent>
 
@@ -42,8 +42,8 @@
 		<java.version>21</java.version>
 		<lombok.version>1.18.34</lombok.version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
-		<commons-csv.version>1.10.0</commons-csv.version>
-		<poi-ooxml.version>5.4.1</poi-ooxml.version>
+		<commons-csv.version>1.14.1</commons-csv.version>
+		<poi-ooxml.version>5.5.1</poi-ooxml.version>
 	</properties>
 
 	<dependencies>
@@ -135,16 +135,17 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+			<version>3.20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.healthmarketscience.jackcess</groupId>
 			<artifactId>jackcess</artifactId>
-			<version>4.0.8</version>
+			<version>4.0.10</version>
 		</dependency>
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<!-- pin a version compatible with JDK 21 if Maven asks -->
+			<version>12.8.1.jre11</version>
 		</dependency>
 
 		<!-- CSV/XLSX parsing used by your batch import -->

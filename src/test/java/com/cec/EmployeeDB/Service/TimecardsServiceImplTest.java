@@ -5,7 +5,6 @@ import com.cec.EmployeeDB.Entity.Timecard;
 import com.cec.EmployeeDB.Repo.TimecardRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -36,6 +35,7 @@ class TimecardsServiceImplTest {
     @InjectMocks
     TimecardsServiceImpl service;
 
+    @SuppressWarnings("null")
     @Test
     void normalizeZeroDatesAndNulls_returns_counts_from_updates() {
         when(jdbc.update(anyString())).thenReturn(2, 3);
@@ -46,6 +46,7 @@ class TimecardsServiceImplTest {
                 .containsEntry("zeroDatesFixedOut", 3);
     }
 
+    @SuppressWarnings("null")
     @Test
     void rebuild_returns_stage_count_and_window() {
         SqlRowSet rowSet = mock(SqlRowSet.class);
@@ -59,6 +60,7 @@ class TimecardsServiceImplTest {
                 .containsEntry("recordsInStage", 7);
     }
 
+    @SuppressWarnings("null")
     @Test
     void findInRange_maps_page_results_with_project_fallback() {
         Timecard tc = new Timecard();
@@ -79,6 +81,7 @@ class TimecardsServiceImplTest {
         assertThat(dtos.get(0).getProject()).isEqualTo("AB12-34");
     }
 
+    @SuppressWarnings("null")
     @Test
     void findInRangePaged_respects_existing_pageable() {
         Timecard tc = new Timecard();

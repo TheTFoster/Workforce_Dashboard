@@ -288,7 +288,14 @@ public class TimecardsController {
         params.add(size);
         params.add(offset);
 
-        String finalSql = sqlTemplate.formatted(where.toString());
+        String whereClause = where.toString();
+        if (whereClause == null) {
+            whereClause = "";
+        }
+        String finalSql = sqlTemplate.formatted(whereClause);
+        if (finalSql == null) {
+            throw new IllegalStateException("SQL query string cannot be null");
+        }
 
         List<Map<String, Object>> rows = jdbc.query(
                 finalSql,
@@ -385,7 +392,11 @@ public class TimecardsController {
             params.add(projectCode);
         }
 
-        final String sql = """
+        String whereClause = where.toString();
+        if (whereClause == null) {
+            whereClause = "";
+        }
+        String formattedSql = """
                 SELECT
                   t.work_date,
                   COALESCE(t.dist_job_code, t.home_job_code, t.allocation_code) AS project_code,
@@ -399,7 +410,11 @@ public class TimecardsController {
                   AND t.work_date BETWEEN ? AND ?
                   %s
                 ORDER BY t.work_date, t.in_punch_time
-                """.formatted(where.toString());
+                """.formatted(whereClause);
+        if (formattedSql == null) {
+            throw new IllegalStateException("SQL query string cannot be null");
+        }
+        final String sql = formattedSql;
 
         List<Map<String, Object>> rows = jdbc.query(
                 sql,
@@ -470,7 +485,7 @@ public class TimecardsController {
             } catch (Exception serviceFailure) {
                 try {
                     final String placeholders = codes.stream().map(c -> "?").collect(Collectors.joining(","));
-                    final String sql = """
+                    String formattedSql = """
                         SELECT UPPER(t.ee_code) AS employee_code,
                                MAX(COALESCE(t.out_punch_time, t.in_punch_time)) AS last_seen_at,
                                SUBSTRING_INDEX(
@@ -491,6 +506,10 @@ public class TimecardsController {
                                 OR t.in_punch_time >= NOW() - INTERVAL ? DAY)
                          GROUP BY UPPER(t.ee_code)
                         """.formatted(placeholders);
+                    if (formattedSql == null) {
+                        throw new IllegalStateException("SQL query string cannot be null");
+                    }
+                    final String sql = formattedSql;
 
                     final List<Object> params = new ArrayList<>();
                     params.addAll(codes);
