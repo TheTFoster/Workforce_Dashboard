@@ -1,0 +1,18 @@
+// package com.cec.EmployeeDB.payloadresponse;
+public class LoginMessage {
+    private boolean status;       // true on success
+    private String message;       // e.g., "Login success" or reason
+    private String employeeCode;  // optional echo
+
+    public LoginMessage() {}
+    public LoginMessage(boolean status, String message, String employeeCode) {
+        this.status = status; this.message = message; this.employeeCode = employeeCode;
+    }
+    public boolean isStatus() { return status; }  // or getStatus() if you prefer
+    public Boolean getStatus() { return status; } // keep both if your code expects either
+    public void setStatus(boolean status) { this.status = status; }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+    public String getEmployeeCode() { return employeeCode; }
+    public void setEmployeeCode(String employeeCode) { this.employeeCode = employeeCode; }
+}

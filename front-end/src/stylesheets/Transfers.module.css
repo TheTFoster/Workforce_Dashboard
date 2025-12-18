@@ -1,0 +1,1194 @@
+/* src/stylesheets/Transfers.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 16px 20px 32px;
+  gap: 16px;
+  /* dark background */
+  background: radial-gradient(circle at top left, #1f2937 0, #020617 45%, #000 100%);
+  color: #f9fafb;
+  font-family: "Aptos", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+}
+
+/* CEC yellow section headings (Employee, Transfer, Compensation, etc.) */
+.container h2,
+.sectionHeading {
+  margin: 18px 0 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #f6c200; /* CEC yellow */
+}
+
+/* Make all form controls readable on dark bg */
+.container input,
+.container select,
+.container textarea {
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+  color: #f9fafb;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.container input::placeholder,
+.container textarea::placeholder {
+  color: #9ca3af;
+}
+
+.container input:focus,
+.container select:focus,
+.container textarea:focus {
+  border-color: #f6c200;
+  box-shadow: 0 0 0 1px rgba(246, 194, 0, 0.35);
+  background: #030712;
+}
+
+/* -------------------------------------------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Big, high-contrast page title */
+.title {
+  color: #ffffff;
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+/* Icon next to title text */
+.titleIcon {
+  display: inline-flex;
+  line-height: 0;
+  font-size: 1.35em;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.primaryBtn,
+.secondaryBtn,
+.linkBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* primary: blue pill */
+.primaryBtn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.7);
+}
+
+.primaryBtn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.primaryBtn:hover:not([disabled]) {
+  filter: brightness(1.05);
+}
+
+/* secondary: subtle dark pill */
+.secondaryBtn {
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  border: 1px solid #1f2937;
+}
+
+.secondaryBtn:hover {
+  background: rgba(15, 23, 42, 1);
+}
+
+/* delete: red pill for archive actions */
+.deleteBtn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.7);
+}
+
+.deleteBtn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.deleteBtn:hover:not([disabled]) {
+  filter: brightness(1.05);
+}
+
+/* success: green pill for restore actions */
+.successBtn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.7);
+}
+
+.successBtn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.successBtn:hover:not([disabled]) {
+  filter: brightness(1.05);
+}
+
+/* simple text link-style button */
+.linkBtn {
+  background: transparent;
+  color: #60a5fa;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.linkBtn:hover {
+  color: #93c5fd;
+}
+
+.linkBtn[disabled] {
+  color: #4b5563;
+  cursor: not-allowed !important;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.linkBtn[disabled]:hover {
+  color: #4b5563;
+  text-decoration: none;
+}
+
+.status {
+  background: #451a03;
+  border: 1px solid #f97316;
+  color: #fed7aa;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* ---------------- FILTERS ---------------- */
+
+.filters {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.filterItem label {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* keep our general control styles, just add consistent height */
+.filterItem select,
+.filterItem input[type="date"] {
+  height: 36px;
+}
+
+/* ---------------- TABLE ---------------- */
+
+.tableWrap,
+.tableWrapper {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
+  max-height: calc(100vh - 360px);
+  position: relative;
+}
+
+.table {
+  width: 100%;
+  min-width: 2300px; /* keep column spacing consistent across tabs/views */
+  border-collapse: collapse;
+  font-size: 16px;
+  table-layout: fixed; /* respect colgroup widths for consistent layout */
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table thead th {
+  background: #0f172a;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #1e293b;
+  font-weight: 700;
+  color: #9ca3af;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.table thead th:not(:last-child) {
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.table thead th:not(:last-child):hover {
+  background: #1e293b;
+  color: #f9fafb;
+}
+
+.sortableHeader {
+  cursor: pointer !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sortableHeader:hover {
+  background: #1e293b;
+  color: #f9fafb;
+}
+
+.table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #111827;
+  vertical-align: top;
+  color: #e5e7eb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.table tbody tr:hover {
+  background: rgba(30, 64, 175, 0.25);
+}
+
+.empty {
+  text-align: center;
+  color: #64748b;
+  padding: 24px;
+}
+
+.muted {
+  color: #94a3b8;
+}
+
+/* status dropdown in table */
+.table select {
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 4px;
+  color: #e5e7eb;
+  font-size: 13px;
+  padding: 4px 6px;
+  min-width: 130px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e5e7eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 18px;
+  padding-right: 28px;
+}
+
+.table select option {
+  background: #1f2937;
+  color: #e5e7eb;
+  font-size: 13px;
+  padding: 4px;
+}
+
+/* history/details block */
+
+.historyCell details summary {
+  cursor: pointer;
+  color: #60a5fa;
+}
+
+.historyBlock {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  color: #e5e7eb;
+  min-width: 260px;
+  max-width: 360px;
+}
+
+.historyLine {
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.historyLabel {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.historyValue {
+  font-weight: 400;
+}
+
+.historySep {
+  margin-left: 4px;
+  color: #e5e7eb;
+}
+
+/* Excel button stays Excel green */
+.excelBtn {
+  background-color: #217346;
+  border-color: #1c5e39;
+  color: #fff;
+}
+
+.excelBtn:hover:not(:disabled) {
+  background-color: #1f6a41;
+  border-color: #185233;
+}
+
+.excelBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Scroll to top button */
+.scrollToTop {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f6c200, #d4a800);
+  color: #1f2937;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  z-index: 1100;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.scrollToTop.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.scrollToTop:hover {
+  background: linear-gradient(135deg, #facc15, #f6c200);
+  transform: scale(1.1);
+  box-shadow: 0 12px 32px rgba(246, 194, 0, 0.5);
+}
+
+.scrollToTop:active {
+  transform: scale(0.95);
+}
+
+/* EE code lookup field needs positioning for dropdown */
+.empLookupField {
+  position: relative;
+}
+
+/* suggestions dropdown under EE Code */
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  padding: 4px 0;
+  list-style: none;
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.8);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 40;
+  min-width: 260px;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+.suggestionItem:hover {
+  background: rgba(37, 99, 235, 0.25);
+}
+
+.suggestionCode {
+  font-weight: 600;
+  color: #f6c200;
+  min-width: 60px;
+}
+
+.suggestionName {
+  flex: 1;
+}
+
+.suggestionMeta {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* --- DARK THEME MODAL OVERRIDES --------------------------------------- */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+.modal {
+  max-width: 1100px;
+  width: 95%;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* dark card to match app */
+  background: radial-gradient(circle at top left, #111827 0, #020617 60%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  color: #e5e7eb;
+}
+
+.modalHeader {
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #020617, #0b1120);
+}
+
+.modalTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+  color: #facc15;
+}
+
+.modalCloseBtn {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  color: #9ca3af;
+}
+
+.modalCloseBtn:hover:not(:disabled) {
+  color: #e5e7eb;
+}
+
+.modalCloseBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.modalBody {
+  padding: 16px 18px 12px;
+  overflow: auto;
+}
+
+/* two-column layout */
+.modalGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px 24px;
+  margin-bottom: 12px;
+}
+
+.modalCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modalField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modalField label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+}
+
+/* THIS is what fixes the black boxes */
+.modalField input,
+.modalField select,
+.modalField textarea {
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  padding: 6px 9px;
+  font-size: 0.88rem;
+  background: rgba(15, 23, 42, 0.95);   /* dark slate, not full black */
+  color: #e5e7eb;
+}
+
+.modalField select {
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.modalField input::placeholder,
+.modalField textarea::placeholder {
+  color: #6b7280;
+}
+
+.modalField input:focus,
+.modalField select:focus,
+.modalField textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55);
+}
+
+/* textareas */
+.modalField textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.modalError {
+  margin-top: 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(185, 28, 28, 0.2);
+  color: #fecaca;
+  font-size: 0.82rem;
+}
+
+.modalActions {
+  padding: 10px 18px 12px;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  background: #020617;
+}
+
+/* make sure buttons sit nicely on dark footer */
+.modalActions .secondaryBtn {
+  background: transparent;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  color: #e5e7eb;
+}
+
+.modalActions .secondaryBtn:hover {
+  background: rgba(30, 64, 175, 0.6);
+}
+
+.modalActions .primaryBtn {
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.7);
+}
+
+/* keep Edit / Details tidy in table */
+.actionsCell {
+  white-space: nowrap;
+  text-align: left;
+  min-width: 160px;
+  width: 160px;
+  vertical-align: middle;
+}
+
+.actionsInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, auto));
+  gap: 6px;
+  align-items: center;
+}
+
+.archiveActions {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Action links in the actions column should not be underlined
+   (email/phone links keep their underline elsewhere). On hover
+   we show underline for affordance. */
+.actionsCell .linkBtn {
+  text-decoration: none;
+  /* pill look: small, subtle background so words don't create sharp 'boxes' */
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  color: inherit;
+  font-weight: 600;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.3) inset;
+  transition: transform 120ms ease, box-shadow 150ms ease, background-color 120ms ease;
+}
+
+.actionsCell .linkBtn:hover {
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.45), 0 2px 0 rgba(255,255,255,0.02) inset;
+}
+
+.actionsCell .linkBtn[disabled] {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+  transform: none !important;
+  box-shadow: none !important;
+  color: #4b5563;
+}
+
+.actionsCell .linkBtn[disabled]:hover {
+  text-decoration: none;
+  color: #4b5563;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Highlighted row tweaks: make controls readable against bright background */
+.highlightedRow td {
+  /* prefer CSS variables set on the row for highlight colors; fall back to inherited color */
+  color: var(--highlight-text, inherit) !important;
+}
+
+.highlightedRow .actionsCell .linkBtn {
+  /* subtle translucent backing to avoid visual 'cut' under text */
+  background: rgba(0,0,0,0.18);
+  border-color: rgba(255,255,255,0.06);
+}
+
+.highlightedRow .actionsCell .linkBtn:hover {
+  background: rgba(0,0,0,0.22);
+}
+
+/* Make the status/select more legible on bright highlighted rows */
+.highlightedRow select {
+  background: rgba(0,0,0,0.45) !important;
+  color: var(--highlight-text, inherit) !important;
+  border-color: rgba(0,0,0,0.55) !important;
+}
+
+/* Details/summary and pre within highlighted rows should inherit readable color */
+.highlightedRow .historyCell details summary,
+.highlightedRow .historyBlock {
+  /* Keep details content readable regardless of row highlight contrast */
+  color: #ffffff !important;
+}
+
+/* apply highlight bg to the row (uses CSS variable set on element) */
+.highlightedRow {
+  background-color: var(--highlight-bg) !important;
+}
+
+/* ensure links and buttons inside highlighted rows also pick up readable text color */
+.highlightedRow a,
+.highlightedRow button,
+.highlightedRow summary,
+.highlightedRow pre {
+  color: var(--highlight-text, inherit) !important;
+}
+
+/* ========== MANDOWN-SPECIFIC STYLES ========== */
+
+.groupsSection {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.groupsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.groupsHeader h2 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #f6c200;
+}
+
+.groupsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.groupChipContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 20px;
+  padding: 2px 2px 2px 4px;
+  border: 1px solid #1f2937;
+  transition: all 0.2s ease;
+}
+
+.groupChipContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.groupChip {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.groupChip:hover {
+  background: rgba(37, 99, 235, 0.2);
+  color: #93c5fd;
+}
+
+.groupEditBtn,
+.groupDeleteBtn {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.groupEditBtn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.groupDeleteBtn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.groupBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.groupBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(96, 165, 250, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 12px;
+  font-size: 12px;
+  color: #93c5fd;
+  font-weight: 500;
+}
+
+.removeBadge {
+  border: none;
+  background: transparent;
+  color: #f87171;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  margin-left: 2px;
+  line-height: 1;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.removeBadge:hover {
+  color: #ef4444;
+}
+
+.assignBtn {
+  border: none;
+  background: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 4px;
+}
+
+.assignBtn:hover {
+  background: rgba(34, 197, 94, 0.25);
+  color: #4ade80;
+}
+
+.groupSelectList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.groupSelectItem {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  color: #e5e7eb;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.groupSelectItem:hover:not(:disabled) {
+  background: rgba(37, 99, 235, 0.2);
+  border-color: #2563eb;
+  color: #93c5fd;
+}
+
+.groupSelectItem:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.groupSelectItem.assigned {
+  background: rgba(22, 163, 74, 0.1);
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.assignedLabel {
+  margin-left: 8px;
+  color: #86efac;
+  font-size: 12px;
+}
+
+.editBtn {
+  border: none;
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editBtn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  color: #60a5fa;
+}
+
+.exportBtn {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.7);
+  transition: all 0.2s ease;
+}
+
+.exportBtn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+}
+
+.clearBtn {
+  border: none;
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearBtn:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #f87171;
+}
+
+.summary {
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 6px;
+  font-size: 14px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.loadingMessage,
+.errorMessage {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 16px;
+}
+
+.loadingMessage {
+  color: #9ca3af;
+}
+
+.errorMessage {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+}
+
+.clickableRow {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tableWrapper {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filterSelect {
+  min-width: 150px;
+}
+
+.dateRange {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dateInput {
+  width: 140px;
+}
+
+.expandableSection {
+  margin-top: 12px;
+}
+
+.expandableSection details summary {
+  cursor: pointer;
+  color: #60a5fa;
+  font-weight: 600;
+  padding: 8px 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.expandableSection details summary:hover {
+  color: #93c5fd;
+}
+
+.expandableSection details[open] summary {
+  margin-bottom: 12px;
+}
+
+.modalContent {
+  max-width: 1100px;
+  width: 95%;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at top left, #111827 0, #020617 60%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  color: #e5e7eb;
+}
+
+/* Tab navigation for filtering by effective date presence */
+.tabNav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #1f2937;
+  padding-bottom: 0;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab:hover {
+  color: #e5e7eb;
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.activeTab {
+  color: #f6c200;
+  border-bottom-color: #f6c200;
+}
+
+.tabBadge {
+  background: rgba(148, 163, 184, 0.2);
+  color: #e5e7eb;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+.activeTab .tabBadge {
+  background: rgba(246, 194, 0, 0.2);
+  color: #f6c200;
+}
+
+.modalHeader {
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #020617, #0b1120);
+}
+
+.modalHeader h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0;
+  color: #f6c200;
+}
+
+.modalClose {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  color: #9ca3af;
+  transition: color 0.2s ease;
+}
+
+.modalClose:hover:not(:disabled) {
+  color: #e5e7eb;
+}
+
+.modalClose:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.modalBody {
+  padding: 16px 18px 12px;
+  overflow: auto;
+}

@@ -1,0 +1,498 @@
+/* ===========================
+   Page shell
+   =========================== */
+.wrap {
+  /* make the page a full-height flex column so the footer can pin to bottom */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #0b0d12;
+  color: #e9eef7;
+
+  /* remove phantom gap above the footer */
+  padding-bottom: 0; /* was 24px */
+}
+
+.header {
+  padding: 18px 24px;
+  border-bottom: 1px solid #1a2233;
+  background: #0f1320;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* Pills in header */
+.pill {
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #1a233a;
+.controlsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .controlsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .controlsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #141b2e;
+  color: #bcd0ff;
+  font-size: 0.82rem;
+  border: 1px solid #223154;
+}
+
+/* ===========================
+   Top toolbar
+   =========================== */
+.toolbar {
+  display: flex;
+  gap: 8px;
+}
+.toolbarBtn {
+  background: #162038;
+  color: #cfe1ff;
+  border: 1px solid #2b3550;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.toolbarBtn:hover { background: #1d2744; }
+.toolbarBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Home button visuals */
+.homeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+.homeIcon { font-size: 1rem; }
+
+/* Custom export dropdown in toolbar */
+.exportWrap { position: relative; }
+.exportMenu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #0f1526;
+  border: 1px solid #2b3550;
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  display: grid;
+  min-width: 260px;
+  z-index: 15;
+}
+.exportMenu > button {
+  text-align: left;
+  background: transparent;
+  color: #e9eef7;
+  border: none;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.exportMenu > button:hover { background: #162038; }
+
+/* ===========================
+   Collapsible Filters Panel
+   =========================== */
+.filtersPanel {
+  margin-top: 12px;
+  border-top: 1px solid #1a2233;
+  padding-top: 12px;
+}
+
+.controlsGrid {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.9fr) 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+@media (max-width: 1100px) {
+  .controlsGrid { grid-template-columns: 1fr; }
+}
+
+.controlBlock {
+  border: 1px solid #1f2942;
+  background: #0f1526;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+/* Taller variant for the Projects card */
+.controlBlockTall {
+  min-height: 360px;
+}
+
+.controlLabel {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #dbe6ff;
+}
+.controlLabelSm {
+  font-weight: 700;
+  color: #dbe6ff;
+  font-size: 0.9rem;
+}
+
+/* Segmented control */
+.segment {
+  display: inline-flex;
+  border: 1px solid #2b3550;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.segmentBtn {
+  background: transparent;
+  color: #cfe1ff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.segmentBtn:hover { background: #162038; }
+.segmentActive {
+  background: #1f6feb;
+  color: #fff;
+}
+.segment[aria-disabled="true"] {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Toggles & sliders */
+.checkboxRow { margin-top: 10px; }
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #cfe1ff;
+}
+
+.sliderRow { margin-top: 10px; }
+.sliderPack {
+  display: grid;
+  grid-template-columns: 1fr 88px;
+  gap: 10px;
+  align-items: center;
+  margin-top: 6px;
+}
+.slider { width: 100%; }
+
+.numberInput {
+  height: 34px;
+  padding: 6px 10px;
+  background: #12182a;
+  color: #e9eef7;
+  border: 1px solid #1f2942;
+  border-radius: 8px;
+
+  /* Vendor prefixes first, then the standard prop */
+  -webkit-appearance: none;   /* Chrome / Safari */
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;      /* Standard */
+}
+
+.numberInput::-webkit-outer-spin-button,
+.numberInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.sliderValue { color: #ffd79a; font-weight: 700; }
+
+/* Project multi-select */
+.multi {
+  width: 100%;
+  background: #12182a;
+  color: #e9eef7;
+  border: 1px solid #1f2942;
+  border-radius: 8px;
+  padding: 8px;
+}
+.multiTall {
+  flex: 1;                 /* fill remaining space in card */
+  min-height: 260px;       /* taller by default */
+  overflow: auto;
+}
+
+/* Buttons & rows */
+.controlRow { margin-top: 8px; display: flex; gap: 8px; }
+.controlRowStickBottom { margin-top: auto; }
+
+.smallBtn {
+  background: #162038;
+  color: #cfe1ff;
+  border: 1px solid #2b3550;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.smallBtn:hover { background: #1d2744; }
+
+/* Pager */
+.pagerRow {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pagerBtn {
+  background: #162038;
+  color: #cfe1ff;
+  border: 1px solid #2b3550;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.pagerBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.pagerBtn:hover:not(:disabled) { background: #1d2744; }
+.pagerInfo { color: #bcd0ff; }
+
+/* Employee search & selects */
+.searchInput {
+  width: 100%;
+  height: 34px;
+  padding: 6px 10px;
+  background: #12182a;
+  color: #e9eef7;
+  border: 1px solid #1f2942;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.select {
+  height: 34px;
+  background: #12182a;
+  color: #e9eef7;
+  border: 1px solid #1f2942;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-left: 8px;
+}
+
+/* ===========================
+   Legend (grid version; modal uses virtual below)
+   =========================== */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px;
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #2a3554;
+}
+.legendText { color: #cfe1ff; font-size: 0.92rem; }
+.muted { color: #99aacc; }
+
+/* ===========================
+   Main content layout
+   =========================== */
+.layout {
+  /* let the content area grow to push the footer down */
+  flex: 1 1 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  padding: 16px 24px;
+}
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.chartCol {
+  border: 1px solid #1f2942;
+  background: #0f1526;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+/* Scrollable chart area so huge heights don't stretch the page */
+.chartScroll {
+  max-height: calc(100vh - 240px);
+  overflow: auto;
+  border-radius: 8px;
+}
+
+.sidebar {
+  border: 1px solid #1f2942;
+  background: #0f1526;
+  border-radius: 12px;
+  padding: 12px;
+  max-height: 900px;
+  overflow: auto;
+}
+.sidebarTitle { margin: 4px 0 12px; font-size: 1rem; font-weight: 700; }
+.ok { color: #8ccf87; }
+.noData { color: #a9b7d3; font-style: italic; padding: 16px; }
+
+/* Overlap list */
+.overlapList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.overlapItem {
+  background: #12182a;
+  border: 1px solid #1f2942;
+  border-radius: 8px;
+  padding: 8px;
+}
+.emp { font-weight: 700; margin-bottom: 6px; color: #dbe6ff; }
+.pair {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+.projectA { color: #ffd79a; }
+.projectB { color: #ff8d8d; }
+.dates { color: #b7c6e6; }
+
+.metaBox {
+  margin-top: 12px;
+  border-top: 1px solid #1f2942;
+  padding-top: 10px;
+  color: #b7c6e6;
+}
+
+/* Loading skeleton */
+.skeleton {
+  height: 650px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #121829 25%, #1a2236 37%, #121829 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+  border: 1px solid #1f2942;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ===========================
+   Legend Modal (virtualized)
+   =========================== */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 40;
+  padding: 32px 16px;
+}
+.modalCard {
+  width: min(760px, 92vw);
+  max-height: 82vh;
+  background: #0f1526;
+  color: #e9eef7;
+  border: 1px solid #2b3550;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.modalTitle { font-weight: 800; }
+.modalClose {
+  background: transparent;
+  color: #cfe1ff;
+  border: 1px solid #2b3550;
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.modalClose:hover { background: #162038; }
+.legendCount {
+  color: #99aacc;
+  font-size: 0.9rem;
+  margin: 4px 0 8px;
+}
+.virtualWrap {
+  border: 1px solid #1f2942;
+  border-radius: 8px;
+  background: #12182a;
+  flex: 1 1 auto;
+  min-height: 320px;
+  max-height: 64vh;
+  overflow: auto;
+}
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-bottom: 1px solid #182039;
+}
+.legendRow:last-child { border-bottom: 0; }
+
+/* ===========================
+   ApexCharts overrides
+   =========================== */
+:global(.apexcharts-toolbar) { color: #cfe1ff; }
+:global(.apexcharts-toolbar svg) { fill: #cfe1ff; }
+
+/* Built-in export dropdown: force dark & readable */
+:global(.apexcharts-menu) {
+  background: #0f1526 !important;
+  border: 1px solid #2b3550 !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35) !important;
+}
+:global(.apexcharts-menu-item) {
+  color: #e9eef7 !important;
+  font-size: 13px !important;
+  padding: 8px 12px !important;
+}
+:global(.apexcharts-menu-item:hover) {
+  background: #162038 !important;
+  color: #ffffff !important;
+}
+
+/* Tooltip should follow cursor and NOT capture events */
+:global(.apexcharts-tooltip) {
+  pointer-events: none !important;
+  z-index: 50 !important;
+}

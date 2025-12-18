@@ -1,0 +1,83 @@
+# ==== Backend: Java / Spring Boot ====
+target/
+build/
+out/
+logs/
+*.log
+hs_err_pid*
+*.hprof
+# Gradle/Maven caches & noise
+.gradle/
+.gradle-cache/
+# Keep Maven wrapper scripts & metadata (do NOT ignore .mvn/)
+!mvnw
+!mvnw.cmd
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+!.mvn/wrapper/MavenWrapperDownloader.java
+
+# ==== Front-end lives in /front-end ====
+front-end/node_modules/
+front-end/dist/
+front-end/build/
+front-end/.npm/
+front-end/.yarn/
+front-end/.parcel-cache/
+front-end/.pnp.*
+front-end/coverage/
+
+# If you have other FE subfolders, add them similarly:
+# web/node_modules/
+# web/build/
+
+# ==== OS / IDE ====
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+
+# ==== Env / secrets ====
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+secrets.properties
+**/secrets.properties
+*.key
+*.pem
+
+# ==== Databases / large binaries (keep OUT of git) ====
+*.accdb
+*.mdb
+*.sqlite*
+*.bak
+*.7z
+*.zip
+*.rar
+*.iso
+
+# ==== Misc ====
+# If you intentionally commit lockfiles for FE reproducibility, DO NOT ignore them.
+# package-lock.json
+# yarn.lock
+
+.fake
+node_modules/
+**/node_modules/
+**/dist/
+**/build/
+**/target/
+
+# ==== Local DB artifacts / exports ====
+*.session.sql
+EmployeeDatabase.*
+CEC_Electrical.*
+
+# ==== Java archives (don’t commit deps) ====
+*.jar
+!/.mvn/wrapper/maven-wrapper.jar

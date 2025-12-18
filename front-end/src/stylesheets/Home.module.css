@@ -1,0 +1,1091 @@
+/* Main layout and container styling */
+.container {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* make room so the fixed footer never overlaps content */
+  padding-bottom: 10px; /* ~= footer height */
+}
+
+/* Header styling */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Center section for filters in header */
+.headerCenter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterInput {
+  padding: 10px 12px;
+  border: 1px solid #1a1a1a;
+  border-radius: 6px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.filterDropdown {
+  padding: 10px 12px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.clearFiltersButton {
+  padding: 10px 12px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.clearFiltersButton:hover {
+  background-color: #2a2a2a;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoutButton img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+/* Account avatar + dropdown */
+.profileWrap {
+  position: relative;
+  margin-right: 8px;
+}
+
+.profileBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: #1a1a1a;
+  color: #f0b400;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.profileBtn:hover { background: #222; }
+.profileBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(240, 180, 0, 0.55);
+  border-color: #f0b400;
+}
+
+.profileIcon {
+  display: block;
+}
+
+.profileMenu {
+  position: absolute;
+  top: 42px; /* drop below button */
+  right: 0;
+  min-width: 180px;
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  padding: 8px;
+  z-index: 600; /* above header */
+}
+
+.profileItem {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: #eaeaea;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.profileItem:hover {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  width: 95%;
+  padding: 20px 0;
+}
+
+/* Content wrapper */
+.contentWrapper {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+
+.subtitle {
+  font-size: 1.6em;
+  margin-bottom: 20px;
+  color: #f0b400;
+}
+
+/* Virtualized list container (outer DIV of react-window) */
+.employeeList {
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+.employeeList::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge (Chromium) */
+}
+
+/* Inner wrapper each row renders into (height controlled in JS) */
+.rowInner {
+  padding: 0;
+}
+
+/* Employee item styling */
+.employeeItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
+  background-color: #0a0a0a;
+  border-radius: 10px;
+  border: 2px solid transparent; /* reserved border space */
+  padding: 18px 22px;
+
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.35);
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease,
+    border-color 120ms ease;
+}
+
+.employeeItem:hover {
+  background-color: #121212;
+  box-shadow: 0 0 0 1px rgba(240, 180, 0, 0.35) inset;
+}
+
+.selected {
+  border-color: #f0b400;
+  box-shadow: 0 0 0 1px #f0b400 inset;
+}
+
+.employeeInfo {
+  flex: 1;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.employeeName {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.employeeGroup,
+.employeeRank,
+.employeePhoneNumber {
+  font-size: 1.0em;
+  color: #cfcfcf;
+  margin: 0;
+}
+
+.timecardButton{
+  background-color: #f0b400;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  align-self: center;
+}
+.timecardButton:hover{
+  background-color: #d4a600;
+}
+
+.detailsButton {
+  background-color: #f0b400;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  align-self: center;
+}
+.detailsButton:hover {
+  background-color: #d4a600;
+}
+
+.actionButtons {
+  position: sticky;
+  align-self: flex-start;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #1a1a1a;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.reportsButton,
+.addButton,
+.editButton,
+.viewButton,
+.deleteButton {
+  width: 160px;
+  padding: 12px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.reportsButton,
+.addButton,
+.editButton,
+.viewButton {
+  background-color: #f0b400;
+  color: #000;
+  transition: background-color 0.2s;
+}
+.reportsButton:hover,
+.addButton:hover,
+.editButton:hover,
+.viewButton:hover {
+  background-color: #d4a600;
+}
+
+.deleteButton {
+  background-color: #d9534f;
+  color: #fff;
+  transition: background-color 0.2s;
+}
+.deleteButton:hover {
+  background-color: #c9302c;
+}
+
+/* Footer: fixed banner at the bottom */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: #f0b400;
+  padding: 14px 20px;
+  text-align: center;
+  z-index: 500; /* stays above content, below modals */
+}
+
+.footerText {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footerLink {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #f0b400;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+.separator {
+  opacity: 0.8;
+}
+
+/* ==== Modal overlay (Export + Batch Update) ==== */
+.modalWrapper {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  z-index: 5000; /* above header / PrimaryNav */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 16px;
+  pointer-events: auto;
+  overflow-y: auto; /* allow scrolling the modal wrapper */
+  overflow-x: hidden;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 5000;
+  pointer-events: auto;
+}
+
+/* The actual dialog for Export */
+.exportModal {
+  position: relative;
+  z-index: 5001;
+  width: min(1400px, 96%);
+  max-width: 1600px;
+  height: min(94vh, 1200px);
+  max-height: calc(100vh - 16px);
+  background: #151515;
+  border-radius: 10px;
+  padding: 22px 32px 28px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9);
+  overflow-y: auto;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Separate modal for Batch Update - taller for viewing changes */
+.batchModal {
+  position: relative;
+  z-index: 5001;
+  width: min(1400px, 96%);
+  max-width: 1600px;
+  min-height: min-content;
+  max-height: none;
+  background: #151515;
+  border-radius: 10px;
+  padding: 22px 32px 28px;
+  margin: 16px auto;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9);
+  overflow: visible;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.modalActions {
+  display: flex;
+  justify-content: center; /* center the Cancel/Export buttons horizontally */
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.exportModal button.exportButton {
+  background-color: #4caf50;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+.exportModal button.exportButton:hover {
+  background-color: #45a049;
+}
+.exportModal button.cancelButton {
+  background-color: #d9534f;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+.exportModal button.cancelButton:hover {
+  background-color: #c9302c;
+}
+
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* allow the fields area to grow and stretch to modal height */
+  flex: 1 1 auto;
+  max-height: calc(86vh);
+  overflow-y: auto;
+  align-items: stretch;
+}
+
+.fieldGroup {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* allow each column to stretch to match modal height */
+  flex: 1 1 45%;
+}
+.fieldGroup label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #f0b400;
+}
+
+.multiSelect,
+.dateInput {
+  padding: 5px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.exportButton {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancelButton {
+  background-color: #d9534f;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.exportButton:hover { background-color: #218838; }
+.cancelButton:hover { background-color: #c82333; }
+
+.checkboxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.checkboxContainer label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+.checkboxContainer input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.noData {
+  color: #ccc;
+}
+
+/* make the title + chip share one line */
+.subtitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* keep title on the left */
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+/* force the chip to the far right */
+.lastUpdatedChip {
+  margin-left: auto;            /* <-- pushes it to the right edge */
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 6px 10px;
+  border: 1px solid #3a3a3a;
+  border-radius: 999px;
+  background: #1f1f1f;
+  color: #c8c8c8;
+  white-space: nowrap;
+  -webkit-user-select: none;    /* <-- Safari prefix (kills your warning) */
+  user-select: none;
+}
+
+/* Base chip (already present) */
+.lastUpdatedChip {
+  margin-left: auto;              /* right-align */
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 6px 10px;
+  border: 1px solid #3a3a3a;
+  border-radius: 999px;
+  background: #1f1f1f;
+  color: #c8c8c8;
+  white-space: nowrap;
+  -webkit-user-select: none;      /* Safari */
+  user-select: none;
+}
+
+/* Accessible colors chosen for contrast on dark UI */
+.chipFresh {
+  background: #0d6d3d;           /* deep green */
+  border-color: #0b5f36;
+  color: #ffffff;                 /* WCAG AA on the green */
+}
+
+.chipAging {
+  background: #b38600;           /* strong yellow-ochre for dark UIs */
+  border-color: #9a7400;
+  color: #111111;                 /* dark text for readability */
+}
+
+.chipStale {
+  background: #a11116;           /* deep red */
+  border-color: #8d0e13;
+  color: #ffffff;                 /* WCAG AA on the red */
+}
+
+.chipUnknown {
+  background: #2a2a2a;           /* neutral */
+  border-color: #3a3a3a;
+  color: #c8c8c8;
+}
+
+.terminateEmployeeButton {
+  background-color: #c3c2c2;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #000;
+  transition: background-color 0.2s;
+  align-self: center;
+}
+.terminateEmployeeButton:hover {
+  background-color: #ff0000;
+}
+
+.deactivateEmployeeButton {
+  background-color: #c3c2c2;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #000;
+  transition: background-color 0.2s;
+  align-self: center;
+}
+.deactivateEmployeeButton:hover {
+  background-color: #ff7b00;
+}
+
+/* ===== Batch Update Modal bits (re-use your modal shell) ===== */
+.batchNote { opacity: .8; margin: 6px 0 12px; }
+.batchError { color: #ff6b6b; font-weight: 600; margin: 6px 0 12px; }
+.batchErrorCount { color: #ff6b6b; }
+
+.batchSummary { border: 1px solid #3a3a3a; border-radius: 8px; padding: 10px; margin: 10px 0 16px; background: #1f1f1f; }
+.batchSummaryRow { display: flex; gap: 8px; margin-bottom: 6px; }
+.batchTotals { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 8px; margin-top: 6px; }
+.batchTotals > div { background: #262626; border: 1px solid #383838; border-radius: 6px; padding: 8px; display: grid; gap: 4px; text-align: center; }
+.batchTotals span { opacity: .8; font-size: 12px; }
+.batchTotals b { font-size: 16px; }
+
+.batchSectionTitle { margin: 12px 0 8px; }
+.batchTableWrap { max-height: 360px; overflow: auto; border: 1px solid #3a3a3a; border-radius: 8px; }
+.batchTable { width: 100%; border-collapse: collapse; }
+.batchTable th, .batchTable td { border-bottom: 1px solid #333; padding: 8px; vertical-align: top; }
+.batchTable th { position: sticky; top: 0; background: #202020; z-index: 1; }
+
+.keyChangesCell { min-width: 260px; }
+.errorMsgCell { max-width: 520px; }
+
+.fieldKey { opacity: .9; }
+.diffArrow { opacity: .7; padding: 0 4px; }
+.diffSame { opacity: .8; }
+.diffChanged { background: rgba(255, 200, 0, .12); border: 1px dashed rgba(255, 200, 0, .35); border-radius: 6px; padding: 2px 6px; display: inline-block; }
+.diffBefore { opacity: .8; text-decoration: line-through; }
+.diffAfter { font-weight: 600; }
+
+.applyButton { 
+  border: 1px solid #4a7a3a; 
+  background: #2b3f2a; 
+  color: #e8ffe8; 
+  padding: 6px 12px; 
+  border-radius: 8px; 
+  font-weight: 700;
+}
+.applyButton:hover { background: #2f462e; border-color: #5a8a4a; }
+
+/* phone line behavior + link */
+.employeePhoneNumber {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.employeePhoneNumber a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255,255,255,0.25);
+}
+
+/* small copy button next to phone */
+.copyPhoneBtn {
+  margin-left: 8px;
+  padding: 2px 6px;
+  font-size: 12px;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+.copyPhoneBtn:hover {
+  background: rgba(255,255,255,0.06);
+}
+.copied {
+  animation: copyPulse 0.6s ease;
+}
+
+@keyframes copyPulse {
+  0% { transform: scale(1); opacity: 1; }
+  40% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+
+/* position the icons in the card’s top-right without shifting layout */
+.employeeItem {
+  position: relative; /* needed for absolute children if you choose that later */
+}
+
+.rowWrapper {
+  margin-bottom: 16px;
+}
+
+.rowFixedHeight {
+  height: 120px;
+}
+
+.nameSeparator {
+  margin-left: 12px;
+  font-size: 0.85em;
+  opacity: 0.9;
+}
+
+.badgeBase {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badgeLeased {
+  composes: badgeBase;
+  background-color: #4a9fff;
+  color: #fff;
+}
+.badgeCec {
+  composes: badgeBase;
+  background-color: #d4a53b;
+  color: #000;
+}
+
+.vendorTag {
+  margin-left: 6px;
+  font-size: 0.75em;
+  color: #a0a0a0;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.groupMeta {
+  opacity: 0.85;
+  margin-left: 8px;
+}
+
+.seenMeta {
+  opacity: 0.65;
+  margin-left: 8px;
+}
+
+.payRateMeta {
+  margin-left: 8px;
+}
+
+/* travel icon cluster (right side of card) */
+.travelIcons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 56px; /* ensures the block is visible even with no data */
+}
+
+.travelIcon { width: 28px; height: 28px; display: inline-flex; }
+.travelIcon svg { width: 28px; height: 28px; }
+
+
+/* palette – tweak later if you want */
+.airIcon  { color: #8cd17d; }  /* willing to travel */
+.carIcon  { color: #ffd166; }  /* prefers local */
+.noteIcon { color: #82aaff; }  /* travel notes */
+
+/* shows a subtle dot when there is no travel data yet */
+.travelProbe {
+  opacity: 0.25;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+/* if you don't already have it, keep right controls aligned */
+.rightControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.travelIcon:hover { opacity: 1; }
+
+
+@media (hover: hover) and (pointer: fine) {
+  .travelIcon:focus { outline: 1px dashed #666; outline-offset: 2px; }
+}
+
+/* Scroll to top button */
+.scrollToTop {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f0b400;
+  color: #1a1a1a;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.scrollToTop:hover {
+  background: #ffc107;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.scrollToTop:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Export modal refinements */
+.exportModalNarrow {
+  max-width: 650px;
+  padding: 10px 14px;
+  max-height: 70vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.exportHeading {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.fieldsTight {
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.fieldGroupTight {
+  margin-bottom: 3px;
+}
+
+.fieldLabelSm {
+  font-size: 0.9rem;
+  margin-bottom: 1px;
+  display: block;
+}
+
+.dateInputSm {
+  padding: 3px 5px;
+  font-size: 0.9rem;
+}
+
+.modalActionsTight {
+  margin-top: 6px;
+  gap: 5px;
+}
+
+.modalBtnSm {
+  padding: 4px 10px;
+  font-size: 0.95rem;
+}
+
+.modalBtnSecondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Batch modal utilities */
+.uploadBox {
+  border: 1px dashed #3a3a3a;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.uploadGrid {
+  display: grid;
+  gap: 8px;
+}
+
+.uploadActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.statusOk {
+  color: #7ddc7d;
+}
+
+.statusError {
+  color: #ff6b6b;
+}
+
+.smallNote {
+  opacity: 0.8;
+}
+
+.dividerTop {
+  border-top: 1px solid #333;
+  padding-top: 8px;
+}
+
+.summaryRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.summaryWarn {
+  color: #ff8b8b;
+  margin-bottom: 6px;
+}
+
+.summaryWarnAmber {
+  color: #ffd27f;
+  margin-bottom: 6px;
+}
+
+.rulesFieldset {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.rulesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.rulesLabel {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.batchScope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.changesTitle {
+  margin-top: 12px;
+}
+
+.changesTableWrap {
+  max-height: 360px;
+  overflow: auto;
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+.changesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.changesTable th,
+.changesTable td {
+  border-bottom: 1px solid #333;
+  padding: 8px;
+}
+
+.pillChanged {
+  border: 1px dashed rgba(255, 200, 0, 0.35);
+  background: rgba(255, 200, 0, 0.12);
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: inline-block;
+}
+
+.pillUnchanged {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: inline-block;
+}
+
+.strike {
+  opacity: 0.8;
+  text-decoration: line-through;
+}
+
+.muted {
+  opacity: 0.8;
+}
+
+.cardHighlight {
+  background: rgba(255, 200, 0, 0.12);
+  border: 1px dashed rgba(255, 200, 0, 0.35);
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: inline-block;
+}
+
+.cardPlain {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: inline-block;
+}
+
+.successGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.successGridLabel {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.successGridValue {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.successGridValueWarn {
+  color: #ff9800;
+}
+
+.successGridValueReactivated {
+  color: #81c784;
+}
+
+.modalCompact {
+  max-width: 600px;
+  width: 90%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+}
+
+.modalCenterRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.modalIconSpacer {
+  margin-right: 12px;
+}
+
+.modalSubhead {
+  margin: 0;
+  color: #4caf50;
+  font-size: 1.8rem;
+}
+
+.modalCenteredText {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modalParagraph {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}

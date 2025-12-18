@@ -1,0 +1,21 @@
+.box { background:#0f1526; border:1px solid #243153; border-radius:10px; padding:12px; }
+.head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.note { display:flex; gap:8px; font-size:12px; opacity:.85; }
+.badgeMissing, .badgeAbsent { border:1px solid #3a4970; padding:2px 6px; border-radius:6px; }
+.badgeMissing { background:#3a2b1a; }
+.badgeAbsent { background:#2a1c2e; }
+
+.tableWrap { overflow:auto; }
+.table { width:100%; border-collapse:collapse; font-size:13px; }
+.table th, .table td { padding:6px 8px; border-bottom:1px solid #1f2942; white-space:nowrap; }
+.colDay { text-align:center; }
+.weekCell { font-weight:600; }
+
+.dayCell { text-align:center; padding:6px 0; border:1px solid transparent; border-radius:6px; }
+.dayCell.missing { background:#372712; border-color:#6a4f1f; }
+.dayCell.absent { background:#281a2d; border-color:#5a2b6a; }
+.weekTotal { font-weight:700; text-align:right; }
+.legend { display:flex; gap:16px; margin-top:8px; font-size:12px; opacity:.85; }
+.swatch { display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-2px; }
+.swatch.missing { background:#6a4f1f; }
+.swatch.absent { background:#5a2b6a; }

@@ -1,0 +1,21 @@
+.card {
+  background: #121212;
+  border: 1px solid #2b2b2b;
+  border-radius: 10px;
+  padding: 14px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.result {
+  margin-top: 12px;
+}
+
+.error {
+  color: #ffd7d4;
+  background: rgba(217, 48, 37, 0.12);
+  border: 1px solid rgba(217, 48, 37, 0.35);
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "CEC Employee Database",
+  "short_name": "CEC DB",
+  "start_url": "/cec-employee-database/",
+  "scope": "/cec-employee-database/",
+  "display": "standalone",
+  "theme_color": "#0b5ed7",
+  "background_color": "#ffffff",
+  "icons": [
+    { "src": "CEC.jpg", "sizes": "192x192", "type": "image/jpeg" },
+    { "src": "CEC.jpg", "sizes": "512x512", "type": "image/jpeg" }
+  ]
+}

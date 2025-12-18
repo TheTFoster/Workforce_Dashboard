@@ -1,0 +1,37 @@
+/* --- header clustering (already present on Home, shown for completeness) --- */
+.header { display:flex; align-items:center; gap:12px; }
+.headerLeft { display:flex; align-items:center; gap:8px; }
+.headerCenter { display:flex; align-items:center; gap:8px; flex:1 1 auto; min-width:0; flex-wrap:wrap; }
+.headerRight { margin-left:auto; display:flex; align-items:center; gap:8px; }
+
+/* Clear Filters + Home icon */
+.clearFiltersButton { height:36px; padding:0 12px; border-radius:6px; }
+.iconOnlyBtn {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:6px;
+  background:#1f1f1f; border:1px solid #2b2b2b; color:#e5aa00; cursor:pointer;
+}
+.iconOnlyBtn:hover { border-color:#3a3a3a; }
+
+/* Phone styles (same as Home) */
+.employeePhoneNumber a,
+.phoneLink {
+  color: var(--mutedText, #b7c4d1);
+  text-decoration: none;
+  letter-spacing: 0.2px;
+}
+.employeePhoneNumber a:hover,
+.phoneLink:hover {
+  color: #dbe5ee;
+  text-decoration: underline;
+}
+
+/* Copy button (same as Home) */
+.copyPhoneBtn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:22px; height:22px; line-height:1;
+  margin-left:6px;
+  border-radius:6px; background:#131313; border:1px solid #2b2b2b;
+  color:#ffce54; cursor:pointer;
+}
+.copyPhoneBtn:hover{ background:#181818; border-color:#3a3a3a; }

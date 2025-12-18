@@ -1,0 +1,168 @@
+/* Container & header (unchanged except: header is sticky now) */
+.container {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.header {
+  position: sticky;   /* <-- make the grey bar sticky */
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+}
+
+.headerLeft { display: flex; align-items: center; }
+.headerRight { display: flex; align-items: center; gap: 20px; }
+.icon { width: 25px; margin-right: 10px; }
+
+/* Home btn */
+.homeButton { background: transparent; border: 0; padding: 6px; cursor: pointer; }
+.homeIcon { width: 22px; height: 22px; color: #fff; }
+.homeMaskBtn {
+  width: 22px; height: 22px; background-color: #fff;
+  -webkit-mask: url("../assets/home.svg") no-repeat center / contain;
+  mask: url("../assets/home.svg") no-repeat center / contain;
+  border: 0; padding: 6px; cursor: pointer; background: none;
+}
+
+/* === Progress/metadata INSIDE the header === */
+.headerCenter {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 12px;
+  min-width: 0;
+}
+
+.headerTitleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.headerTitle { font-size: 1rem; font-weight: 600; color: #f0b400; }
+.headerMeta  { font-size: 0.9rem; color: #ddd; }
+.headerId    { margin-left: auto; font-size: 0.9rem; color: #bbb; }
+
+/* Track + fill */
+.headerTrack {
+  position: relative;
+  height: 8px;
+  background: #2b2b2b;
+  border: 1px solid #404040;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.headerFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f0b400, #ffd966);
+  transition: width 220ms ease-in-out;
+}
+
+/* Ticks (20/40/60/80/100) */
+.headerTicks { pointer-events: none; }
+.headerTick {
+  position: absolute;
+  top: -16px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.headerTickLabel {
+  font-size: 0.7rem;
+  color: #aaa;
+  display: block;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+.headerTickLine { display: block; width: 1px; height: 12px; background: #555; margin: 0 auto; }
+
+/* Optional: tighter header on small screens */
+@media (max-width: 720px) {
+  .headerTitle { font-size: 0.95rem; }
+  .headerMeta { font-size: 0.85rem; }
+  .headerTickLabel { display: none; }
+  .headerTickLine { height: 8px; }
+}
+
+/* --- Rest of your existing styles (kept) --- */
+.form { background-color: #2a2a2a; padding: 20px; border-radius: 8px; width: 100%; max-width: 1080px; margin-top: 20px; }
+.section { margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
+.section h2 { font-size: 1.5em; color: #f0b400; margin-bottom: 10px; }
+.fieldGroup { display: flex; flex-direction: column; margin-bottom: 10px; }
+.fieldGroup label { margin-bottom: 5px; font-size: 0.9em; color: #ccc; }
+.fieldGroup input {
+  padding: 8px; border: 1px solid #555; border-radius: 4px;
+  background-color: #222; color: #fff;
+}
+.fieldGroup select {
+  background-color: #1a1a1a; color: #ffffff; padding: 8px; border: 1px solid #444;
+  border-radius: 5px; font-size: 1rem; width: 100%; appearance: none; cursor: pointer;
+}
+.fieldGroup select:hover { background-color: #333; }
+.fieldGroup select:focus { outline: none; border-color: #f0b400; }
+.fieldGroup select option { background-color: #1a1a1a; color: #ffffff; }
+.dateFields { display: flex; flex-wrap: wrap; gap: 20px; }
+.dateFields .fieldGroup { flex: 1 1 calc(33% - 20px); }
+.disabledInput { background-color: #f0f0f0; color: #888; cursor: not-allowed; }
+
+.buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.clearButton { background-color: #d9534f; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-right: auto; }
+.clearButton:hover { background-color: #c9302c; }
+.submitButton, .nextButton { background-color: #f0b400; color: #000; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+.submitButton:hover, .nextButton:hover { background-color: #d4a600; }
+.backButton { padding: 10px 20px; background-color: #f0f0f0; color: #1a1a1a; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; }
+.backButton:hover { background-color: #e0e0e0; }
+
+.radioContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 16px;
+  margin: 0 auto 20px auto;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background-color: #222;
+  width: 100%;
+  max-width: 1080px;
+  justify-content: center;
+}
+.radioContainer label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+  gap: 6px;
+}
+.radioContainer label:hover {
+  background-color: #333;
+}
+.radioContainer input[type="radio"] {
+  margin: 0;
+  accent-color: #f0b400;
+  cursor: pointer;
+}
+.radioContainer input[type="radio"]:checked ~ span {
+  font-weight: 600;
+}
+
+/* Main content wrapper (spacing below sticky header) */
+.mainContent { width: 100%; max-width: 1080px; padding: 0 12px 24px; box-sizing: border-box; margin-top: 8px; }

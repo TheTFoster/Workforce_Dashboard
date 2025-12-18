@@ -1,0 +1,57 @@
+name: Frontend CI (Vite)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    env:
+      CI: true
+
+    defaults:
+      run:
+        working-directory: front-end
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: front-end/package-lock.json
+
+      - name: Install deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Build (Vite)
+        run: npm run build
+
+      - name: Smoke test (serve & ping)
+        run: |
+          npx vite preview --port 4173 --strictPort &
+          npx wait-on http://localhost:4173
+          curl -I http://localhost:4173 || exit 1
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.node-version }}
+          path: front-end/dist
+          retention-days: 14

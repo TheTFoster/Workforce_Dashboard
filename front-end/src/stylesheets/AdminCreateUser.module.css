@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  /* center relative to the full viewport to guarantee vertical centering */
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:root {
+  --cec-yellow: #f2c12e;
+  --card-bg: #111214;
+  --card-ink: #e6e6e6;
+  --muted: #9a9a9a;
+  --accent: var(--cec-yellow);
+  --btn-bg: #2b2d31;
+  --btn-hover: #3a3c40;
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border-radius: 10px;
+  padding: 22px 24px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
+  color: var(--card-ink);
+  transition: box-shadow 160ms ease, outline-color 160ms ease;
+}
+
+.card:focus-within {
+  outline: 3px solid rgba(242,193,46,0.12);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 0 0 3px rgba(242,193,46,0.06);
+}
+
+.title {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: var(--card-ink);
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.input {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--card-ink);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(242,193,46,0.06);
+  border-color: var(--accent);
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--card-ink);
+}
+
+.checkboxRow label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkboxRow input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--accent);
+  flex: none;
+}
+
+.checkboxLabel {
+  font-size: 13px;
+  color: var(--card-ink);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.2);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btnPrimary {
+  background: linear-gradient(180deg, var(--accent), #d9a81a);
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.25);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  background: var(--btn-bg);
+  color: var(--card-ink);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.msgSuccess {
+  color: #7ad17a;
+  margin-top: 8px;
+}
+
+.msgError {
+  color: #ff6b6b;
+  margin-top: 8px;
+}
+
+.footerNote {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}

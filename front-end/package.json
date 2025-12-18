@@ -1,0 +1,50 @@
+{
+  "name": "front-end",
+  "private": true,
+  "version": "0.5.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "npm run build && playwright test",
+    "test:e2e:ui": "npm run build && playwright test --ui"
+  },
+  "engines": {
+    "node": ">=20 <23"
+  },
+  "dependencies": {
+    "axios": "1.13.2",
+    "connect-history-api-fallback": "^2.0.0",
+    "dayjs": "^1.11.18",
+    "express": "^5.2.1",
+    "file-saver": "^2.0.5",
+    "http-proxy-middleware": "^3.0.5",
+    "nginx": "^1.1.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "7.10.1",
+    "react-toastify": "^11.0.5",
+    "react-window": "^2.2.3",
+    "recharts": "^2.15.0",
+    "serve-static": "^2.2.0",
+    "xlsx": "0.18.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^14.2.2",
+    "@vitejs/plugin-react": "5.1.2",
+    "jsdom": "^25.0.1",
+    "vite": "7.2.7",
+    "vite-plugin-svgr": "^4.5.0",
+    "vitest": "^2.1.4"
+  },
+  "overrides": {
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
+  }
+}

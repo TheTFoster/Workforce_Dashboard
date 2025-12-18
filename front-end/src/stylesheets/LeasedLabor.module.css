@@ -1,0 +1,204 @@
+/* Dark theme + CEC Yellow, no light fallbacks */
+
+.container { background: #000000; color: #fff; min-height: 100vh; }
+
+.header {
+  position: sticky; top: 0; z-index: 50;
+  background: #2a2a2a; border-bottom: 1px solid #3a3a3a; padding: 12px 16px;
+}
+
+.title { margin: 0 0 6px; font-size: 1.1rem; color: #f0b400; font-weight: 600; }
+
+.row { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
+.badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.badge, .badgeOk, .badgeMuted {
+  font-size: 0.8rem; border: 1px solid #444; padding: 2px 8px; border-radius: 999px;
+}
+.badge { background: #333; }
+.badgeOk { background: #214d2a; color: #c6f6d5; border-color: #335a39; }
+.badgeMuted { background: #262626; color: #cfcfcf; }
+
+.viewTabs { display: inline-flex; gap: 6px; }
+.tab {
+  background: transparent; color: #ddd; border: 1px solid #444; padding: 6px 10px;
+  border-radius: 999px; cursor: pointer; font-size: 0.85rem;
+}
+.tabActive { background: #3a3a3a; color: #fff; }
+
+.toolbar { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.search {
+  flex: 1 1 auto; background: #1e1e1e; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 8px 10px;
+}
+.spacer { flex: 0 0 12px; }
+.btnGhost { background: transparent; color: #ddd; border: 1px solid #444; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.btnGhost:hover { background: #333; }
+
+.hint { margin-top: 8px; font-size: 0.8rem; color: #bdbdbd; }
+.hint code { background: #1f1f1f; padding: 2px 6px; border-radius: 6px; border: 1px solid #333; }
+
+/* Full-width content */
+.main {
+  width: 100%;
+  max-width: none;
+  margin: 12px 12px 32px;
+  padding: 0;
+}
+
+/* Groups / collapsibles */
+.group {
+  border: 1px solid #333; border-radius: 10px; background: #1b1b1b; margin-bottom: 12px; overflow: hidden;
+}
+.groupHeader {
+  width: 100%; display: flex; align-items: center; gap: 10px; justify-content: space-between;
+  padding: 12px 14px; background: #242424; color: #fff; border: 0; cursor: pointer; text-align: left;
+}
+.groupTitle { font-weight: 600; color: #f0d175; }
+.countChip {
+  margin-left: auto; font-size: 0.8rem; background: #2e2e2e; border: 1px solid #454545;
+  padding: 2px 8px; border-radius: 999px; color: #ddd;
+}
+.chevron { font-size: 1rem; color: #aaa; padding-left: 8px; }
+
+/* Employee list */
+.employeeList {
+  list-style: none;
+  margin: 0;
+  padding: 6px 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Card */
+.employeeItem {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+
+  background: #171717;
+  border: 1px solid #2f2f2f;
+  border-radius: 8px;
+  padding: 12px 14px;
+  width: 100%;
+  transition: border-color 120ms ease, background 120ms ease, transform 80ms ease;
+}
+.employeeItem:hover { border-color: #3a3a3a; background: #1a1a1a; }
+.selected { border-color: #5a4a00; box-shadow: 0 0 0 1px #5a4a00 inset; }
+
+.empLeft { flex: 1; min-width: 220px; }
+.empName { font-weight: 600; color: #fff; }
+.empSub { font-size: 0.85rem; color: #b9b9b9; margin-top: 2px; }
+.empSubMuted { font-size: 0.8rem; color: #9aa0a6; margin-top: 2px; }
+
+/* Row of small chips (e.g., status) under the name block */
+.chipsRow {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+/* Status chip system */
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: #2e2e2e;
+  color: #ddd;
+  letter-spacing: 0.01em;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.statusActive { background: #214d2a; color: #c6f6d5; border-color: #335a39; }
+.statusInactive { background: #4a3a21; color: #ffe7b3; border-color: #6a532f; }
+.statusTerminated { background: #4d2121; color: #ffd1d1; border-color: #5a3333; }
+.statusOther { background: #2e2e2e; color: #ddd; border-color: #444; }
+
+/* Right grid auto-fits to fill space */
+.empRight {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  align-items: start;
+  gap: 8px 12px;
+  width: 100%;
+}
+
+.kv { display: flex; gap: 6px; align-items: baseline; }
+.key { color: #9aa0a6; font-size: 0.8rem; }
+.val { color: #e8eaed; font-size: 0.9rem; }
+
+/* Optional styling if you show a pay rate value inline */
+.rate {
+  font-weight: 600;
+  color: #f0d175;
+}
+
+/* Actions row sits on the right; on small screens it wraps under */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Link-style button for details */
+.linkBtn {
+  background: transparent;
+  border: 1px solid #5a4a00;
+  color: #f0b400;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.linkBtn:hover {
+  background: #2a2400;
+  border-color: #7a6200;
+}
+
+/* Responsive: collapse into single column on narrow screens */
+@media (max-width: 720px) {
+  .employeeItem { flex-direction: column; }
+  .empRight { grid-template-columns: 1fr; }
+}
+
+/* Top-right Home button — dark look */
+.btnHome {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  background: #2a2a2a;
+  color: #e8eaed;
+  border: 1px solid #444;
+
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+.btnHome:hover { transform: translateY(-1px); background: #333; border-color: #555; }
+.homeIcon { width: 1.1rem; height: 1.1rem; }
+.homeText { letter-spacing: 0.01em; }
+
+@media (max-width: 640px) {
+  .btnHome { order: -1; margin-bottom: 0.5rem; }
+  .title { margin-top: 0.25rem; }
+}
+
+.empty { padding: 2rem 0.75rem; text-align: center; color: #9aa0a6; }

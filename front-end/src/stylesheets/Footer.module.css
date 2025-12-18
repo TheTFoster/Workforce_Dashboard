@@ -1,0 +1,70 @@
+/* New: page-level wrapper to push footer to bottom */
+.pageRoot {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;              /* lets it hug the bottom */
+  width: 100%;
+  box-sizing: border-box;
+  /* a touch taller + safe-area padding for iOS */
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0));
+  border-top: 1px solid #3a3a3a;
+  background: #1f1f1f;
+  color: #ddd;
+
+  display: grid;
+  /* minmax(0,1fr) prevents the sides from forcing overflow */
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+/* Ensure grid children can shrink instead of overflowing */
+.left, .center, .right { min-width: 0; }
+
+.left { display: inline-flex; gap: 8px; align-items: center; }
+.brand { color: #f0b400; font-weight: 700; letter-spacing: .02em; }
+.sep { opacity: .8; }
+.name { opacity: .85; }
+
+.center { text-align: center; }
+
+.toTop {
+  border: 1px solid #444;
+  background: #262626;
+  color: #e8eaed;
+  padding: 8px 12px;            /* slightly larger button */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.toTop:hover { background: #2e2e2e; border-color: #555; }
+
+/* Right side can wrap instead of getting cut off */
+.right {
+  justify-self: end;
+  font-size: .85rem;
+  color: #a7a7a7;
+  display: flex;
+  flex-wrap: wrap;              /* <-- key: allow wrap */
+  column-gap: 10px;
+  row-gap: 6px;
+}
+
+@media (max-width: 720px) {
+  .footer { grid-template-columns: 1fr; text-align: center; }
+  .right { justify-self: center; }
+}
+
+/* Optional helpers (keep as you had) */
+.linkRow { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.footerLink {
+  background: none; border: none; padding: 0;
+  color: #f0b400; text-decoration: underline; cursor: pointer; font: inherit;
+  -webkit-user-select: none; user-select: none;
+}
+.pageTag { margin-left: 12px; font-size: .95rem; color: #f0b400; opacity: .9; white-space: nowrap; }

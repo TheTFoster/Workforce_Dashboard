@@ -1,0 +1,42 @@
+/* Register.module.css */
+
+body {
+    background-color: black; /* Set background to black */
+    color: white; /* Set text color to white */
+}
+
+/* Styling for the container and card */
+.container,
+.card {
+    background-color: #222; /* Set card background to a very dark shade */
+    padding: 20px;
+    border-radius: 8px;
+    color: white; /* Ensure text inside the card is white */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow for depth */
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    background-color: #333; /* Darker background for input fields */
+    color: white; /* White text inside input fields */
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+label {
+    color: #ccc; /* Light color for labels */
+}
+
+button {
+    background-color: #555; /* Dark button background */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #777; /* Button color on hover */
+}

@@ -1,0 +1,530 @@
+/* General Container */
+.container {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+.icon { width: 25px; margin-right: 10px; }
+
+.title { font-size: 1.5em; font-weight: bold; }
+
+.homeButton { background: none; border: none; cursor: pointer; }
+.homeButton img { width: 25px; cursor: pointer; }
+
+/* Main Content Area */
+.mainContent {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 40px;
+}
+
+/* Employee Details Card */
+.detailsCard {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    max-width: 1400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Section Title Styling */
+.sectionTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f0b400;
+    margin-bottom: 20px;
+}
+.department { font-style: italic; color: #f0b400; }
+
+/* Profile Section */
+.profileSection {
+    display: flex;
+    align-items: flex-start; /* top align columns */
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.profileImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f0b400;
+}
+
+/* Two-column identity header */
+.identityCols {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 340px);
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+}
+.identityColLeft { min-width: 0; }
+.identityColRight { min-width: 0; }
+
+.employeeName { font-size: 1.2em; font-weight: bold; color: #ffffff; }
+.position, .email, .phone, .project { font-size: 1em; margin-bottom: 5px; }
+.email { color: #f0b400; text-decoration: none; }
+.project { font-style: italic; color: #cfcfcf; }
+
+/* Quick chips (status, tenure, etc.) */
+.quickChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.chip {
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+}
+.ok   { border-color: #2ca64a; background: rgba(44,166,74,0.18); }
+.warn { border-color: #e6a400; background: rgba(230,164,0,0.18); }
+.bad  { border-color: #d9534f; background: rgba(217,83,79,0.18); }
+
+/* Right column card */
+.idCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+}
+.idCardTitle { margin: 0 0 8px 0; font-size: 0.95rem; opacity: 0.9; }
+.idList {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  row-gap: 6px;
+  font-size: 0.95rem;
+  margin: 0 0 10px 0;
+}
+.idList dt { opacity: 0.75; white-space: nowrap; }
+.idList dd {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pay block */
+.payBlock {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+}
+.payHeader { font-size: 0.9rem; opacity: 0.8; margin-bottom: 6px; }
+.payRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.payAmt { font-weight: 700; font-size: 1.05rem; }
+.payMeta { text-align: right; opacity: 0.9; font-size: 0.9rem; line-height: 1.1rem; }
+.payEmpty { opacity: 0.6; }
+
+/* Info Grid Section */
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    gap: 15px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.infoItem { display: flex; flex-direction: column; font-size: 0.9em; color: #e0e0e0; }
+.infoItem .infoLabel { font-weight: bold; color: #f0b400; }
+.infoItem .infoContent { margin-top: 5px; color: #ffffff; }
+
+/* Action Buttons Section */
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+.deleteButton, .editButton, .returnButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.deleteButton { background-color: #d9534f; color: #ffffff; }
+.deleteButton:hover { background-color: #c9302c; }
+.editButton, .returnButton { background-color: #f0b400; color: #000000; }
+.editButton:hover, .returnButton:hover { background-color: #d4a600; }
+.deleteButton:focus-visible,
+.editButton:focus-visible,
+.returnButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(240,180,0,0.35);
+}
+
+/* Tabs */
+.levelButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.levelButton,
+.activeButton {
+    padding: 8px 16px;
+    background-color: #444;
+    color: #f0b400;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.levelButton:hover { background-color: #555; color: #ffd86a; }
+.activeButton { background-color: #f0b400; color: #333; }
+.levelButton:focus-visible,
+.activeButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(240,180,0,0.35);
+}
+
+.levelInfo { margin-top: 20px; font-size: 0.9em; color: #e0e0e0; }
+
+/* Link-style button (used for supervisor search link) */
+.linkBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #ffd86a;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.linkBtn:hover { color: #ffe497; }
+.linkBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(240,180,0,0.35);
+  border-radius: 4px;
+}
+
+/* === Timeline === */
+.timelineContainer {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #1b1b1b;
+}
+.timelineSvg {
+  width: 100%;
+  height: 220px; /* adjusts with container width via viewBox */
+  display: block;
+}
+/* Axis & ticks */
+.tlAxis { stroke: #555; stroke-width: 1.25; }
+.tlTick { stroke: #666; stroke-width: 1; }
+.tlTickLabel { fill: #cfcfcf; font-size: 11px; }
+
+/* Work span */
+.tlWork { fill: rgba(80, 160, 255, 0.25); stroke: #5aa0ff; stroke-width: 1.5; }
+.tlBarLabel { fill: #e9eef5; font-size: 12px; font-weight: 600; pointer-events: none; }
+.tlInBar { fill: #f2f7ff; font-size: 11px; font-weight: 600; pointer-events: none; }
+
+/* Transfer / key point */
+.tlTransfer { fill: #ffd166; stroke: #e8b84f; stroke-width: 1; }
+.tlLeader { stroke: #aab2bd; stroke-width: 1.5; }
+.tlDotLabel { fill: #f0f4f8; font-size: 12px; font-weight: 600; pointer-events: none; }
+
+/* Text halo for contrast on dark bg */
+.tlHalo {
+  paint-order: stroke fill;
+  stroke: #1b1b1b;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+/* Legend */
+.timelineLegend {
+  margin-top: 10px;
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  opacity: 0.9;
+}
+.legendItem { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; color: #d8d8d8; }
+.legendWork, .legendTransfer { display: inline-block; width: 16px; height: 10px; border-radius: 3px; }
+.legendWork { background: rgba(80, 160, 255, 0.35); border: 1px solid #5aa0ff; }
+.legendTransfer { background: #ffd166; border: 1px solid #e8b84f; }
+
+/* (Legacy helpers kept for compatibility) */
+.tlLoc { fill: #aeb4bb; font-size: 10px; opacity: 0.95; }
+.tlBarInside { fill: #f2f5f9; font-size: 11px; font-weight: 600; pointer-events: none; }
+
+/* Lists (Corrective Action view) */
+.listTable { display: grid; gap: 8px; }
+.listRow {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 8px;
+  background: rgba(255,255,255,0.03);
+}
+.muted { opacity: 0.7; }
+
+/* Chips row for metadata at the bottom */
+.metaChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.metaChip { opacity: 0.9; }
+
+/* Responsive tweak: stack the two header columns on narrow screens */
+@media (max-width: 820px) {
+  .identityCols { grid-template-columns: 1fr; }
+}
+.weekBlock { margin-bottom: 12px; }
+
+.weekGrid {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;      /* <- wrap days */
+  gap: 8px;
+  padding: 8px 4px;
+}
+
+.dayCell {
+  flex: 1 1 260px;      /* grow/shrink; ~3 cards per row on wide screens */
+  min-width: 220px;
+  max-width: 360px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.02);
+}
+
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.dayTotal { opacity: 0.9; font-weight: 600; }
+
+.spanBlock { margin-bottom: 8px; }
+.spanLine { font-size: 0.95rem; }
+.spanJob  { opacity: 0.9; }
+.spanAct  { color: #bbb; font-size: 0.9rem; }
+.spanHours { text-align: right; font-weight: 600; }
+
+.muted { opacity: 0.6; }
+
+/* Week wrapper + header */
+.weekSection {
+  margin: 8px 0 14px 0;
+}
+
+.weekHeader {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* Toggle button (caret + label) */
+.weekToggle {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Caret */
+.chev {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);  /* collapsed */
+  transition: transform 0.18s ease-in-out;
+}
+
+.chevOpen {
+  transform: rotate(45deg);   /* expanded */
+}
+
+/* Body */
+.weekBody {
+  margin-top: 8px;
+}
+
+/* Keep your existing weekGrid/dayCell from earlier */
+/* ------------------------------ loading shell ------------------------------ */
+
+.loadingShell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050505; /* match your app background */
+  color: #f5f5f5;
+}
+
+.loadingCard {
+  background: #161616;
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  max-width: 520px;
+  width: calc(100% - 40px);
+}
+
+.loadingHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.loadingDbIcon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.7));
+}
+
+.loadingAppName {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.loadingTagline {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.loadingBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-top-color: #fbbf24; /* CEC yellow-ish */
+  border-right-color: #2563eb; /* CEC blue-ish */
+  animation: loadingSpin 0.8s linear infinite;
+  margin-bottom: 6px;
+}
+
+@keyframes loadingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loadingSubtitle {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* skeleton rows to hint at the layout that’s coming */
+.loadingSkeletonGrid {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.loadingSkeletonRow {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #222 0%, #333 50%, #222 100%);
+  background-size: 200% 100%;
+  animation: loadingShimmer 1.4s ease-in-out infinite;
+}
+
+.loadingSkeletonRow:nth-child(1) {
+  width: 80%;
+}
+.loadingSkeletonRow:nth-child(2) {
+  width: 60%;
+}
+.loadingSkeletonRow:nth-child(3) {
+  width: 40%;
+}
+
+@keyframes loadingShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loadingButton {
+  margin-top: 8px;
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #2563eb;
+  color: #f9fafb;
+  transition: background 0.15s ease, transform 0.08s ease;
+}
+
+.loadingButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.loadingButton:active {
+  background: #1e40af;
+  transform: translateY(0);
+}

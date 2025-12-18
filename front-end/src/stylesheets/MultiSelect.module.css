@@ -1,0 +1,81 @@
+:root{
+  --ms-bg: #0f1011;
+  --ms-border: rgba(255,255,255,0.06);
+  --ms-accent: rgba(242,193,46,0.06);
+  --ms-ink: #e6e6e6;
+}
+
+.container {
+  position: relative;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--ms-border);
+  color: var(--ms-ink);
+  cursor: pointer;
+}
+
+.placeholder {
+  opacity: 0.6;
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 120;
+  margin-top: 6px;
+  right: 0;
+  left: 0;
+  background: var(--ms-bg);
+  border: 1px solid var(--ms-border);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.filterInput {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.01);
+  color: var(--ms-ink);
+}
+
+.options {
+  max-height: 220px;
+  overflow: auto;
+  display: grid;
+  gap: 6px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ms-ink);
+}
+
+.optionChecked {
+  background: var(--ms-accent);
+}
+
+.noMatches {
+  color: #9a9a9a;
+  padding: 8px;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+}

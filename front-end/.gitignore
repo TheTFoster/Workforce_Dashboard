@@ -1,0 +1,12 @@
+node_modules/
+build/
+dist/
+coverage/
+.parcel-cache/
+.pnp.*
+.env
+.env.*
+playwright-report/
+test-results/
+blob-report/
+.cache/ms-playwright/

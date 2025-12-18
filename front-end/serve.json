@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    { "source": "/cec-employee-database/static/js/(.*)", "destination": "/static/js/$1" },
+    { "source": "/cec-employee-database/static/css/(.*)", "destination": "/static/css/$1" },
+    { "source": "/cec-employee-database/static/media/(.*)", "destination": "/static/media/$1" },
+
+    { "source": "/cec-employee-database/asset-manifest.json", "destination": "/asset-manifest.json" },
+    { "source": "/cec-employee-database/manifest.json", "destination": "/manifest.json" },
+    { "source": "/cec-employee-database/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/cec-employee-database/CEC.jpg", "destination": "/CEC.jpg" },
+    { "source": "/cec-employee-database/(home|logout|database|profile-default).svg", "destination": "/$1.svg" },
+
+    { "source": "/cec-employee-database/(.*)", "destination": "/$1" },
+    { "source": "/cec-employee-database", "destination": "/" }
+  ]
+}
