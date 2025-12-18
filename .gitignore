@@ -81,3 +81,4 @@ CEC_Electrical.*
 # ==== Java archives (don’t commit deps) ====
 *.jar
 !/.mvn/wrapper/maven-wrapper.jar
+temp_extract_styles.ps1
