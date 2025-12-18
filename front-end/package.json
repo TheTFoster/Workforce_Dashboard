@@ -19,6 +19,7 @@
     "apexcharts": "^5.3.6",
     "axios": "1.13.2",
     "connect-history-api-fallback": "^2.0.0",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.18",
     "express": "^5.2.1",
     "file-saver": "^2.0.5",
