@@ -34,7 +34,7 @@
     "react-window": "^2.2.3",
     "recharts": "^3.6.0",
     "serve-static": "^2.2.0",
-    "xlsx": "^0.18.7"
+    "xlsx": "0.18.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
