@@ -67,6 +67,7 @@ public class SecurityConfig {
                                                                 "/api/v1/timecards/normalize",
                                                                 "/api/v1/alerts/refresh",
                                                                 "/api/v1/timecards/predict/rebuild",
+                                                                "/api/v1/field-import/upload",
                                                                 "/api/v1/timecards/latest-by-emp",
                                                                 "/api/v1/timecards/current-assignments/by-emp",
                                                                 "/api/v1/employee/details-by-emp",
