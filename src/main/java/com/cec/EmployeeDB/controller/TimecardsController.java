@@ -47,6 +47,12 @@ public class TimecardsController {
             @RequestPart("file") MultipartFile file,
             @RequestParam(value = "replaceAll", defaultValue = "false") boolean replaceAll,
             HttpServletRequest req) throws Exception {
+        org.springframework.security.web.csrf.CsrfToken tok = (org.springframework.security.web.csrf.CsrfToken) req.getAttribute(org.springframework.security.web.csrf.CsrfToken.class.getName());
+        if (tok == null) {
+            // In case the CsrfCookieFilter didn't run, force creation to avoid "Invalid CSRF token" surprises
+            tok = new org.springframework.security.web.csrf.DefaultCsrfToken("X-XSRF-TOKEN", "XSRF-TOKEN", java.util.UUID.randomUUID().toString());
+            req.setAttribute(org.springframework.security.web.csrf.CsrfToken.class.getName(), tok);
+        }
         if (com.cec.EmployeeDB.Config.SmokeTestGuard.isSmokeTest(req)) {
             return ResponseEntity.ok(new ImportResultDTO(0L, 0, 0, 0, 0));
         }

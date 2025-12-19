@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../api";
+import api, { initCsrf } from "../api";
 import styles from "../stylesheets/TimecardsImport.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,65 @@ const getXsrfToken = () =>
     .split("; ")
     .find((c) => c.startsWith("XSRF-TOKEN="))
     ?.split("=")[1];
+
+const csrfHeaders = (token) =>
+  token
+    ? {
+        "X-XSRF-TOKEN": token,
+        "X-CSRF-TOKEN": token,
+        "XSRF-TOKEN": token,
+      }
+    : {};
+
+// Best-effort CSRF bootstrap to avoid Spring's 403 CsrfException
+async function ensureCsrfToken(force = false) {
+  let tok = getXsrfToken();
+  if (tok && !force) return decodeURIComponent(tok);
+  try {
+    // Hit the CSRF endpoint directly; Spring returns the token in the body and cookie
+    const res = await api.get("/csrf-token", {
+      withCredentials: true,
+      params: { t: Date.now() },
+    });
+    tok = res?.data?.token || getXsrfToken();
+  } catch {
+    tok = null;
+  }
+  return tok ? decodeURIComponent(tok) : null;
+}
+
+// Wrap POSTs so we retry once with a fresh CSRF token if the first shot is rejected
+async function postWithCsrf(url, data, config = {}) {
+  const attempt = async () => {
+    const tok = await ensureCsrfToken(true);
+    // If we somehow still don't have a token, fail fast with a clearer error
+    if (!tok) {
+      throw new Error("CSRF token missing; refresh login and retry.");
+    }
+    return api.post(url, data, {
+      ...config,
+      headers: {
+        ...(config.headers || {}),
+        ...csrfHeaders(tok),
+      },
+    });
+  };
+
+  try {
+    return await attempt();
+  } catch (err) {
+    if (err?.response?.status === 403) {
+      // Log details to help diagnose (visible in console)
+      console.warn("[import] 403 on", url, {
+        cookie: document.cookie,
+        xsrf: getXsrfToken(),
+        resp: err?.response?.data,
+      });
+      return attempt();
+    }
+    throw err;
+  }
+}
 
 export default function TimecardsImport({ onExport, onOpenBatch }) {
   const [file, setFile] = useState(null);
@@ -22,8 +81,6 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
   const [alsoNormalize, setAlsoNormalize] = useState(true);
   const [alsoRecompute, setAlsoRecompute] = useState(true);
   const [replaceAll, setReplaceAll] = useState(false);
-
-  // you already had this for gantt prediction rebuild — keep it if you still use it
   const [rebuildOut, setRebuildOut] = useState(null);
 
   // Progress tracking
@@ -35,23 +92,18 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
   async function uploadPaycom(fileObj) {
     const fd = new FormData();
     fd.append("file", fileObj);
-    const xsrf = getXsrfToken();
-    
+
     if (replaceAll) {
       setProgressMessage("Clearing existing data...");
     } else {
       setProgressMessage("Uploading file...");
     }
     setUploadProgress(0);
-    
-    const res = await api.post("/api/v1/timecards/import", fd, {
+    const res = await postWithCsrf("/api/v1/timecards/import", fd, {
       params: { replaceAll: replaceAll },
       withCredentials: true,
-      timeout: 600000, // 10 minute timeout for large files
-      headers: {
-        "Content-Type": "multipart/form-data",
-        ...(xsrf ? { "X-XSRF-TOKEN": decodeURIComponent(xsrf) } : {}),
-      },
+      timeout: 600000,
+      headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (progressEvent) => {
         const percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
@@ -62,35 +114,27 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
         }
       },
     });
-    
+
     setProgressMessage("Import complete!");
     setUploadProgress(100);
-    
+
     return res.data; // { batchId, total, inserted, duplicates, errors }
   }
 
   async function normalizePaycom() {
-    const xsrf = getXsrfToken();
-    const res = await api.post(
+    const res = await postWithCsrf(
       "/api/v1/timecards/normalize",
       {},
-      {
-        withCredentials: true,
-        headers: xsrf ? { "X-XSRF-TOKEN": decodeURIComponent(xsrf) } : {},
-      }
+      { withCredentials: true }
     );
     return res.data; // { normalized:true, zeroDatesFixed:n }
   }
 
   async function recomputeAlerts() {
-    const xsrf = getXsrfToken();
-    const res = await api.post(
+    const res = await postWithCsrf(
       "/api/v1/alerts/refresh",
       { scopes: ["MISSED_PUNCH_LAST_BUSINESS_DAY", "NO_HOURS_THIS_WEEK_CT"] },
-      {
-        withCredentials: true,
-        headers: xsrf ? { "X-XSRF-TOKEN": decodeURIComponent(xsrf) } : {},
-      }
+      { withCredentials: true }
     );
     return res.data; // { missedPunchCreated:n, noHoursCreated:n }
   }
@@ -166,12 +210,14 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
     setError(null);
     setRebuildOut(null);
     try {
-      const xsrf = getXsrfToken();
-      const resp = await api.post("/api/v1/timecards/predict/rebuild", null, {
-        params: { windowDays: 28 },
-        withCredentials: true,
-        headers: xsrf ? { "X-XSRF-TOKEN": decodeURIComponent(xsrf) } : {},
-      });
+      const resp = await postWithCsrf(
+        "/api/v1/timecards/predict/rebuild",
+        null,
+        {
+          params: { windowDays: 28 },
+          withCredentials: true,
+        }
+      );
       setRebuildOut(resp.data);
     } catch (err) {
       console.error(err);
@@ -204,7 +250,9 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
             className={styles.filtersPanel}
             style={{ padding: 16 }}
           >
-            <label className={styles.controlLabel}>Paycom Time Report (CSV or XLSX)</label>
+            <label className={styles.controlLabel}>
+              Paycom Time Report (CSV or XLSX)
+            </label>
             <input
               type="file"
               accept=".csv,.xlsx"
@@ -276,11 +324,7 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
               </button>
             </div>
 
-            {error && (
-              <p className={styles.noData}>
-                {error}
-              </p>
-            )}
+            {error && <p className={styles.noData}>{error}</p>}
 
             {/* Progress indicator */}
             {busy && (
@@ -315,8 +359,7 @@ export default function TimecardsImport({ onExport, onOpenBatch }) {
                   <strong>Total rows:</strong> {result.total ?? 0}
                 </div>
                 <div>
-                  <strong>Rows inserted:</strong>{" "}
-                  {result.inserted ?? 0}
+                  <strong>Rows inserted:</strong> {result.inserted ?? 0}
                 </div>
                 {"duplicates" in result && (
                   <div>

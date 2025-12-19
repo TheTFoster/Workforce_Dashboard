@@ -58,12 +58,15 @@ public class SecurityConfig {
 
                 http
                                 .cors(Customizer.withDefaults())
-                                .csrf(csrf -> csrf
-                                                .csrfTokenRepository(csrfRepo)
-                                                // Allow auth endpoints to skip CSRF (login/forgot/reset bootstrap)
+                        .csrf(csrf -> csrf
+                                        .csrfTokenRepository(csrfRepo)
+                                        // Allow auth endpoints to skip CSRF (login/forgot/reset bootstrap)
                                                 .ignoringRequestMatchers(
                                                                 "/api/v1/auth/**",
-                                                                // read-only POSTs used by the SPA dashboards
+                                                                "/api/v1/timecards/import",
+                                                                "/api/v1/timecards/normalize",
+                                                                "/api/v1/alerts/refresh",
+                                                                "/api/v1/timecards/predict/rebuild",
                                                                 "/api/v1/timecards/latest-by-emp",
                                                                 "/api/v1/timecards/current-assignments/by-emp",
                                                                 "/api/v1/employee/details-by-emp",

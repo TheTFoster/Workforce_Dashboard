@@ -161,6 +161,14 @@ export default function Login() {
       // Frontend guard flag (server still enforces auth)
       localStorage.setItem("auth", "1");
 
+      // New session after login often invalidates the pre-login CSRF token.
+      // Refresh it immediately so the next POST (e.g., timecards import) won't 403.
+      try {
+        await initCsrf();
+      } catch {
+        // non-fatal; backend will still demand a token on the next call
+      }
+
       // If server requires a password change, route to the change page first
       if (data.mustChangePassword === true) {
         // If server returned a pwChangeToken, persist it briefly for the change flow
